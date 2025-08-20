@@ -1,0 +1,5625 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<script>
+function abs(x)
+{
+ check(is_num,x)
+ return Math.abs(x)
+}
+function add(x,y,...z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ const _=x+y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return add(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function and(x,y,...z)
+{
+ check(is_bool,x)
+ check(is_bool,y)
+ const _=x&&y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return and(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function angle(x)
+{
+ check(is_str,x)
+ return concat("<",x,">")
+}
+function append(x,y)
+{
+ check(is_arr,x)
+ check(is_arr,y)
+ for(const v of (typeof(y)==="function")?y():y)
+  push(x,v)
+}
+function arr(...x)
+{
+ return [...x]
+}
+function asc(x)
+{
+ check(is_char,x)
+ return x.charCodeAt(0)
+}
+function at(x,y,z)
+{
+ check(is_vec,x)
+ check(is_uint,y)
+ const _=dec(x.length)
+ {
+  const n=_
+  {
+   check(between,y,0,n)
+   if(is_undef(z))
+    return x[y]
+   x[y]=z
+  }
+ }
+}
+function back(x,y,z)
+{
+ check(is_vec,x)
+ if(is_undef(y))
+  return back(x,0)
+ check(is_uint,y)
+ const _=sub(x.length,y)
+ {
+  const n=_
+  {
+   const _=dec(n)
+   {
+    const n=_
+    {
+     if(is_undef(z))
+      return at(x,n)
+     at(x,n,z)
+    }
+   }
+  }
+ }
+}
+function base36_decode(x)
+{
+ check(is_str,x)
+ const _=""
+ {
+  let r=_
+  {
+   const _=explode(x)
+   {
+    const a=_
+    {
+     while(is_full(a))
+     {
+      const _=slice_l(a,4)
+      {
+       const a2=_
+       {
+        shift(a,4)
+        const _=implode(a2)
+        {
+         const s=_
+         {
+          const _=Number.parseInt(s,36)
+          {
+           const n=_
+           {
+            const _=mul(256,256)
+            {
+             const range=_
+             {
+              check(is_uint,n)
+              check(lte,n,range)
+              const _=chr(n)
+              {
+               const c=_
+               {
+                r=concat(r,c)
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function base36_encode(x)
+{
+ check(is_str,x)
+ const _=""
+ {
+  let r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=asc(v)
+    {
+     const s=_
+     {
+      const _=to_base36(s)
+      {
+       const s=_
+       {
+        const _=pad_l(s,"0",4)
+        {
+         const s=_
+         {
+          r=concat(r,s)
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function between(x,y,z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ check(is_num,z)
+ check(gte,z,y)
+ if(lt(x,y))
+  return false
+ if(gt(x,z))
+  return false
+ return true
+}
+function brace(x)
+{
+ check(is_str,x)
+ return concat("{",x,"}")
+}
+function bracket(x)
+{
+ check(is_str,x)
+ return concat("[",x,"]")
+}
+function byte_size(x)
+{
+ check(is_uint,x)
+ check(gte,x,0)
+ const _=1024
+ {
+  const kb=_
+  {
+   const _=mul(kb,1024)
+   {
+    const mb=_
+    {
+     const _=mul(mb,1024)
+     {
+      const gb=_
+      {
+       const _=mul(gb,1024)
+       {
+        const tb=_
+        {
+         if(lt(x,kb))
+         {
+          const _=to_fixed(x)
+          {
+           const s=_
+           return concat(s,"b")
+          }
+         }
+         if(lt(x,mb))
+         {
+          const _=div(x,kb)
+          {
+           const s=_
+           {
+            const _=trunc(s)
+            {
+             const s=_
+             {
+              const _=to_fixed(s)
+              {
+               const s=_
+               return concat(s,"Kb")
+              }
+             }
+            }
+           }
+          }
+         }
+         if(lt(x,gb))
+         {
+          const _=div(x,mb)
+          {
+           const s=_
+           {
+            const _=trunc(s)
+            {
+             const s=_
+             {
+              const _=to_fixed(s)
+              {
+               const s=_
+               return concat(s,"Mb")
+              }
+             }
+            }
+           }
+          }
+         }
+         if(lt(x,tb))
+         {
+          const _=div(x,gb)
+          {
+           const s=_
+           {
+            const _=trunc(s)
+            {
+             const s=_
+             {
+              const _=to_fixed(s)
+              {
+               const s=_
+               return concat(s,"Gb")
+              }
+             }
+            }
+           }
+          }
+         }
+         const _=div(x,tb)
+         {
+          const s=_
+          {
+           const _=trunc(s)
+           {
+            const s=_
+            {
+             const _=to_fixed(s)
+             {
+              const s=_
+              return concat(s,"Tb")
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function capture(x,...y)
+{
+ check(is_fn,x)
+ check(is_null,output)
+ global.output=""
+ x(...y)
+ const _=(typeof(output)==="function")?output():output
+ {
+  const r=_
+  {
+   const _=trim_r(r)
+   {
+    const r=_
+    {
+     global.output=null
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function check(x,...y)
+{
+ if(is_true(x))
+ {
+  if(is_empty(y))
+   return
+ }
+ else if(is_fn(x))
+ {
+  const _=x(...y)
+  {
+   const b=_
+   {
+    if(is_true(b))
+     return
+   }
+  }
+ }
+ stop()
+}
+function chr(x)
+{
+ check(is_uint,x)
+ return String.fromCharCode(x)
+}
+function clear(x)
+{
+ check(is_arr,x)
+ x.splice(0)
+}
+function clone(x)
+{
+ check(is_def,x)
+ return structuredClone(x)
+}
+function cmp(x,y)
+{
+ check(is_def,x)
+ check(is_def,y)
+ if(x>y)
+  return 1
+ if(x<y)
+  return -1
+ return 0
+}
+function collate(x)
+{
+ check(is_arr,x)
+ function is_delimited(x)
+ {
+  if(same(x,"_"))
+   return false
+  if(is_punct(x))
+   return true
+  if(is_space(x))
+   return true
+  return false
+ }
+ const _=[]
+ {
+  const a=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    if(is_empty(a))
+    {
+     push(a,v)
+     continue
+    }
+    const _=back(a)
+    {
+     const left=_
+     {
+      const _=back(left)
+      {
+       const left=_
+       {
+        const _=front(v)
+        {
+         const right=_
+         {
+          if(is_delimited(left))
+          {
+          }
+          else if(is_delimited(right))
+          {
+          }
+          else
+          {
+           push(a,right)
+           continue
+          }
+          const _=concat(left,right)
+          {
+           const s=_
+           {
+            drop(a)
+            push(a,s)
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   return join(a," ")
+  }
+ }
+}
+function concat(...x)
+{
+ return implode(x)
+}
+function contain(x,y)
+{
+ check(is_vec,x)
+ if(is_str(x))
+  check(is_str,y)
+ check(is_def,y)
+ return x.includes(y)
+}
+function crc(x)
+{
+ check(is_str,x)
+ const _=0
+ {
+  let r=_
+  {
+   const _=explode(x)
+   {
+    const a=_
+    {
+     for(const k in (typeof(a)==="function")?a():a)
+     {
+      const _=to_i(k)
+      {
+       const i=_
+       {
+        const _=at(a,i)
+        {
+         const s=_
+         {
+          for(const k in (typeof(s)==="function")?s():s)
+          {
+           const _=to_i(k)
+           {
+            const i=_
+            {
+             const _=at(s,i)
+             {
+              const v=_
+              {
+               const _=asc(v)
+               {
+                const n=_
+                {
+                 r=add(r,n)
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function date_decode(x)
+{
+ check(is_str,x)
+ const _=new Date(x)
+ {
+  const r=_
+  {
+   const _=(typeof(r.getTime)==="function")?r.getTime():r.getTime
+   {
+    const r=_
+    {
+     const _=div(r,1000)
+     {
+      const r=_
+      {
+       const _=trunc(r)
+       {
+        const r=_
+        return (typeof(r)==="function")?r():r
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function date_str(x)
+{
+ if(is_undef(x))
+ {
+  const _=(typeof(time_get)==="function")?time_get():time_get
+  {
+   const n=_
+   return date_str(n)
+  }
+ }
+ check(is_num,x)
+ const _=mul(x,1000)
+ {
+  const n=_
+  {
+   const _=new Date(n)
+   {
+    const o=_
+    {
+     const _=(typeof(o.getFullYear)==="function")?o.getFullYear():o.getFullYear
+     {
+      const y=_
+      {
+       const _=(typeof(o.getMonth)==="function")?o.getMonth():o.getMonth
+       {
+        const m=_
+        {
+         const _=inc(m)
+         {
+          const m=_
+          {
+           const _=pad_l(m,"0",2)
+           {
+            const m=_
+            {
+             const _=(typeof(o.getDate)==="function")?o.getDate():o.getDate
+             {
+              const d=_
+              {
+               const _=pad_l(d,"0",2)
+               {
+                const d=_
+                return concat(y,"/",m,"/",d)
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dbg_backtrace(x)
+{
+ if(is_undef(x))
+ {
+  const _=new Error("backtrace")
+  {
+   const e=_
+   return dbg_backtrace(e.stack)
+  }
+ }
+ check(is_str,x)
+ function parse_numbers(x)
+ {
+  check(is_arr,x)
+  const _=[]
+  {
+   const r=_
+   {
+    for(const v of (typeof(x)==="function")?x():x)
+    {
+     if(!(is_numeric(v)))
+      continue
+     const _=json_decode(v)
+     {
+      const n=_
+      {
+       if(!(is_uint(n)))
+        continue
+       push(r,n)
+      }
+     }
+    }
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ const _=[]
+ {
+  const r=_
+  {
+   const _=trim(x)
+   {
+    const stack=_
+    {
+     const _=split(stack)
+     {
+      const stack=_
+      {
+       const _=(typeof(dbg_source_map)==="function")?dbg_source_map():dbg_source_map
+       {
+        const map=_
+        {
+         for(const k in (typeof(stack)==="function")?stack():stack)
+         {
+          const _=to_i(k)
+          {
+           const i=_
+           {
+            const _=at(stack,i)
+            {
+             const v=_
+             {
+              if((typeof(is_node)==="function")?is_node():is_node)
+              {
+               const _=at(process.argv,1)
+               {
+                const script=_
+                {
+                 if(!(contain(v,script)))
+                  continue
+                }
+               }
+              }
+              const _=trim(v)
+              {
+               const s=_
+               {
+                const _=replace(s,"@"," ")
+                {
+                 const s=_
+                 {
+                  const _=split(s," ")
+                  {
+                   const a=_
+                   {
+                    const _=front(a)
+                    {
+                     const s=_
+                     {
+                      if(same(s,"at"))
+                       shift(a)
+                      const _=shift(a)
+                      {
+                       let fn=_
+                       {
+                        if(is_empty(fn))
+                        {
+                         fn="anonymous"
+                        }
+                        if(!(is_noun(fn)))
+                         continue
+                        const _=shift(a)
+                        {
+                         const a=_
+                         {
+                          const _=scan(a,is_atom)
+                          {
+                           const a=_
+                           {
+                            const _=parse_numbers(a)
+                            {
+                             const a=_
+                             {
+                              if(!(is_many(a)))
+                               continue
+                              const _=back(a,1)
+                              {
+                               const njs=_
+                               {
+                                const _=dec(njs)
+                                {
+                                 let index=_
+                                 {
+                                  if(gte(index,map.source.length))
+                                   continue
+                                  const _=at(map.source,index)
+                                  {
+                                   const location=_
+                                   {
+                                    const _=trim(location.js)
+                                    {
+                                     const js=_
+                                     {
+                                      const _=trim(location.cs)
+                                      {
+                                       const cs=_
+                                       {
+                                        const _=(typeof(location.path)==="function")?location.path():location.path
+                                        {
+                                         const path=_
+                                         {
+                                          const _=(typeof(location.index)==="function")?location.index():location.index
+                                          {
+                                           const ncs=_
+                                           {
+                                            const _=inc(location.index)
+                                            {
+                                             const ncs=_
+                                             {
+                                              const _={fn,njs,js,path,ncs,cs}
+                                              {
+                                               const o=_
+                                               push(r,o)
+                                              }
+                                             }
+                                            }
+                                           }
+                                          }
+                                         }
+                                        }
+                                       }
+                                      }
+                                     }
+                                    }
+                                   }
+                                  }
+                                 }
+                                }
+                               }
+                              }
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+         return (typeof(r)==="function")?r():r
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dbg_callstack(x)
+{
+ if(is_undef(x))
+ {
+  const _=new Error("callstack")
+  {
+   const e=_
+   return dbg_callstack(e.stack)
+  }
+ }
+ check(is_str,x)
+ const _=dbg_backtrace(x)
+ {
+  const r=_
+  {
+   while(is_full(r))
+   {
+    const _=front(r)
+    {
+     const frame=_
+     {
+      const _=(typeof(frame.fn)==="function")?frame.fn():frame.fn
+      {
+       const fn=_
+       {
+        if(same(fn,"throw"))
+        {
+        }
+        else if(same(fn,"stop"))
+        {
+        }
+        else if(same(fn,"check"))
+        {
+        }
+        else
+         break
+        shift(r)
+       }
+      }
+     }
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dbg_origin_xs(x,y)
+{
+ if(is_undef(x))
+ {
+  const _=new Error("origin-xs")
+  {
+   const e=_
+   return dbg_origin_xs(e.stack)
+  }
+ }
+ check(is_str,x)
+ check(is_str,y)
+ const _=(typeof(dbg_source_map)==="function")?dbg_source_map():dbg_source_map
+ {
+  const map=_
+  {
+   const _=dbg_callstack(x)
+   {
+    const frames=_
+    {
+     const _=head(frames,4)
+     {
+      const frames=_
+      {
+       for(const k in (typeof(frames)==="function")?frames():frames)
+       {
+        const _=to_i(k)
+        {
+         const i=_
+         {
+          const _=at(frames,i)
+          {
+           const v=_
+           {
+            const _=null
+            {
+             let t=_
+             {
+              const _=null
+              {
+               let title=_
+               {
+                if(same(y,"cs"))
+                {
+                 const _=get(map.files,v.path)
+                 {
+                  const file=_
+                  {
+                   const _=(typeof(v.ncs)==="function")?v.ncs():v.ncs
+                   {
+                    const line=_
+                    {
+                     t=dbg_origin(file,line)
+                     stack="stack"
+                    }
+                   }
+                  }
+                 }
+                }
+                else if(same(y,"js"))
+                {
+                 const _=(typeof(v.njs)==="function")?v.njs():v.njs
+                 {
+                  const line=_
+                  {
+                   t=dbg_origin(map.source,line,"js")
+                   stack="javacript"
+                  }
+                 }
+                }
+                else
+                 stop()
+                const _=tbl_render(t)
+                {
+                 const s=_
+                 {
+                  const _=txt_prepend(s,"> ")
+                  {
+                   const s=_
+                   {
+                    const _=inc(i)
+                    {
+                     const n=_
+                     {
+                      const _=concat("#",n)
+                      {
+                       const s2=_
+                       {
+                        const _=space("stack frame",s2)
+                        {
+                         const s2=_
+                         {
+                          flower(s2)
+                          log(s)
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dbg_origin(source,line,key,depth)
+{
+ check(is_arr,source)
+ check(is_uint,line)
+ if(is_undef(key))
+  return dbg_origin(source,line,"",depth)
+ check(is_str,key)
+ if(is_undef(depth))
+  return dbg_origin(source,line,key,15)
+ check(is_uint,depth)
+ function origin(source,line,key,depth)
+ {
+  check(is_arr,source)
+  check(is_uint,line)
+  check(is_str,key)
+  check(is_uint,depth)
+  const _=[]
+  {
+   const r=_
+   {
+    const _=[]
+    {
+     const a=_
+     {
+      const _=div(depth,2)
+      {
+       const n=_
+       {
+        const _=trunc(n)
+        {
+         const n=_
+         {
+          const _=sub(line,n)
+          {
+           let n=_
+           {
+            const _=min(source.length,depth)
+            {
+             const length=_
+             {
+              const _=add(n,length)
+              {
+               const nup=_
+               {
+                if(lt(n,1))
+                {
+                 n=1
+                }
+                else if(gte(nup,source.length))
+                {
+                 n=sub(source.length,length)
+                 n=inc(n)
+                 if(lt(n,1))
+                 {
+                  n=1
+                 }
+                }
+                for(let i=0;i<((typeof(length)==="function")?length():length);i++)
+                {
+                 const _=add(n,i)
+                 {
+                  const n=_
+                  {
+                   const _=" "
+                   {
+                    let p=_
+                    {
+                     if(same(n,line))
+                     {
+                      p=">"
+                     }
+                     const _=dec(n)
+                     {
+                      const index=_
+                      {
+                       const _=at(source,index)
+                       {
+                        let code=_
+                        {
+                         if(is_empty(key))
+                          check(is_str,code)
+                         else
+                         {
+                          code=get(code,key)
+                          check(is_str,code)
+                         }
+                         const _={n,p,code}
+                         {
+                          const o=_
+                          push(a,o)
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+                const _=[]
+                {
+                 const a2=_
+                 {
+                  for(const v of (typeof(a)==="function")?a():a)
+                   push(a2,v.code)
+                  const _=join(a2)
+                  {
+                   const s=_
+                   {
+                    const _=str_unindent(s)
+                    {
+                     const s=_
+                     {
+                      const _=split(s)
+                      {
+                       const a3=_
+                       {
+                        for(const k in (typeof(a3)==="function")?a3():a3)
+                        {
+                         const _=to_i(k)
+                         {
+                          const i=_
+                          {
+                           const _=at(a3,i)
+                           {
+                            const code=_
+                            {
+                             const _=at(a,i)
+                             {
+                              const o=_
+                              {
+                               o.code=(typeof(code)==="function")?code():code
+                              }
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                        for(const v of (typeof(a)==="function")?a():a)
+                        {
+                         if(is_empty(v.code))
+                          continue
+                         push(r,v)
+                        }
+                        return (typeof(r)==="function")?r():r
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ const _=origin(source,line,key,depth)
+ {
+  let r=_
+  {
+   if(gte(r.length,depth))
+    return (typeof(r)==="function")?r():r
+   const _=inc(depth)
+   {
+    let n=_
+    {
+     while(lte(n,source.length))
+     {
+      r=origin(source,line,key,n)
+      if(gte(r.length,depth))
+       break
+      n=inc(n)
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function dbg_report(x)
+{
+ check(is_obj,x)
+ function log_talk()
+ {
+  if(is_empty(talks))
+   return
+  flower("log")
+  for(const v of (typeof(talks)==="function")?talks():talks)
+   log("debug>",...v)
+ }
+ function log_backtrace(x)
+ {
+  check(is_str,x)
+  const _=dbg_backtrace(x)
+  {
+   const backtrace=_
+   {
+    tbl_remove_column(backtrace,"njs")
+    tbl_remove_column(backtrace,"js")
+    const _=tbl_render(backtrace)
+    {
+     const backtrace=_
+     {
+      const _=txt_prepend(backtrace,"> ")
+      {
+       const backtrace=_
+       {
+        if(is_full(backtrace))
+        {
+         flower("backtrace")
+         log(backtrace)
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ const _=(typeof(x.stack)==="function")?x.stack():x.stack
+ {
+  const stack=_
+  {
+   const _=space(x.constructor.name,"/",x.message,"/",app)
+   {
+    const title=_
+    {
+     const _=capture(log_talk)
+     {
+      const talk=_
+      {
+       const _=capture(dbg_origin_xs,stack,"cs")
+       {
+        const cs=_
+        {
+         const _=capture(log_backtrace,stack)
+         {
+          const backtrace=_
+          {
+           const _=capture(dbg_origin_xs,stack,"js")
+           {
+            const js=_
+            {
+             flower(title)
+             if(is_full(talk))
+              log(talk)
+             log(cs)
+             log(backtrace)
+             log(js)
+             return {title,talk,cs,backtrace,js}
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dbg_source_map()
+{
+ const _=(typeof(dbg_source)==="function")?dbg_source():dbg_source
+ {
+  const lines_js=_
+  {
+   const _=split(lines_js)
+   {
+    const lines_js=_
+    {
+     const _=[]
+     {
+      const paths=_
+      {
+       for(const v of (typeof(relatives)==="function")?relatives():relatives)
+       {
+        const _=at(pool,v)
+        {
+         const path=_
+         push(paths,path)
+        }
+       }
+       const _={}
+       {
+        const files=_
+        {
+         for(const k in (typeof(contents)==="function")?contents():contents)
+         {
+          const _=get(contents,k)
+          {
+           const content=_
+           {
+            const _=to_uint(k)
+            {
+             const n=_
+             {
+              const _=at(pool,n)
+              {
+               const path=_
+               {
+                const _=[]
+                {
+                 const lines=_
+                 {
+                  for(const v of (typeof(content)==="function")?content():content)
+                  {
+                   const _=at(pool,v)
+                   {
+                    const s=_
+                    push(lines,s)
+                   }
+                  }
+                  put(files,path,lines)
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+         const _=[]
+         {
+          const source=_
+          {
+           if((typeof(is_node)==="function")?is_node():is_node)
+           {
+           }
+           else if((typeof(is_browser)==="function")?is_browser():is_browser)
+           {
+            for(let i=0;i<(7);i++)
+             push(source,null)
+           }
+           for(const k in (typeof(paths)==="function")?paths():paths)
+           {
+            const _=to_i(k)
+            {
+             const i=_
+             {
+              const _=(typeof(i)==="function")?i():i
+              {
+               let n=_
+               {
+                if(gte(n,paths.length))
+                 continue
+                const _=at(paths,n)
+                {
+                 const path=_
+                 {
+                  const _=at(indices,n)
+                  {
+                   const index=_
+                   {
+                    const _=(typeof(n)==="function")?n():n
+                    {
+                     let js=_
+                     {
+                      if((typeof(is_node)==="function")?is_node():is_node)
+                      {
+                      }
+                      else if((typeof(is_browser)==="function")?is_browser():is_browser)
+                      {
+                       js=add(js,5)
+                      }
+                      const _=at(lines_js,js)
+                      {
+                       const js=_
+                       {
+                        const _=get(files,path)
+                        {
+                         const cs=_
+                         {
+                          const _=at(cs,index)
+                          {
+                           const cs=_
+                           {
+                            const _={path,index,js,cs}
+                            {
+                             const o=_
+                             push(source,o)
+                            }
+                           }
+                          }
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+           return {files,source}
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dbg_source(x)
+{
+ function get_source()
+ {
+  if((typeof(is_node)==="function")?is_node():is_node)
+  {
+   const _=at(process.argv,1)
+   {
+    const path=_
+    {
+     const _=file_read(path)
+     {
+      const s=_
+      return (typeof(s)==="function")?s():s
+     }
+    }
+   }
+  }
+  else if((typeof(is_browser)==="function")?is_browser():is_browser)
+   return (typeof(html.outerHTML)==="function")?html.outerHTML():html.outerHTML
+  else
+   stop()
+ }
+ const _=""
+ {
+  let r=_
+  {
+   if(is_undef(x))
+   {
+    r=(typeof(get_source)==="function")?get_source():get_source
+   }
+   else
+   {
+    r=file_read(x)
+   }
+   const _=trim_r(r)
+   {
+    const r=_
+    {
+     const _=split(r)
+     {
+      const r=_
+      {
+       while(true)
+       {
+        const _=pop(r)
+        {
+         const s=_
+         {
+          if(match_l(s,"const app="))
+           break
+         }
+        }
+       }
+       const _=join(r)
+       {
+        const r=_
+        return (typeof(r)==="function")?r():r
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dec(x)
+{
+ check(is_num,x)
+ return sub(x,1)
+}
+function dedup(x)
+{
+ check(is_arr,x)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    if(!(contain(r,v)))
+     push(r,v)
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function delimit(x,y)
+{
+ check(is_str,x)
+ if(is_undef(y))
+  return delimit(x,is_fragment)
+ check(is_fn,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=(typeof(v)==="function")?v():v
+    {
+     const right=_
+     {
+      if(is_empty(r))
+      {
+       push(r,right)
+       continue
+      }
+      const _=back(r)
+      {
+       const left=_
+       {
+        const _=concat(left,right)
+        {
+         const fragment=_
+         {
+          if(is_fragment(fragment))
+          {
+           drop(r)
+           push(r,fragment)
+          }
+          else
+           push(r,right)
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function different(x,y)
+{
+ return x!==y
+}
+function div(x,y,...z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ check(different,y,0)
+ const _=x/y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return div(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function drop(x,y)
+{
+ check(is_arr,x)
+ if(is_undef(y))
+  return drop(x,1)
+ pop(x,y)
+}
+function dump(x)
+{
+ check(is_def,x)
+ function find_arg_name()
+ {
+  for(const v of (typeof(dbg_callstack)==="function")?dbg_callstack():dbg_callstack)
+  {
+   const _=(typeof(v.cs)==="function")?v.cs():v.cs
+   {
+    const cs=_
+    {
+     if(!(match(cs,"dump *")))
+      continue
+     const _=split(cs," ")
+     {
+      const a=_
+      return back(a)
+     }
+    }
+   }
+  }
+  stop()
+ }
+ const _=(typeof(find_arg_name)==="function")?find_arg_name():find_arg_name
+ {
+  const name=_
+  {
+   if((typeof(is_node)==="function")?is_node():is_node)
+   {
+    if((typeof(process.stdout.isTTY)==="function")?process.stdout.isTTY():process.stdout.isTTY)
+    {
+     const _=false
+     {
+      const showHidden=_
+      {
+       const _=null
+       {
+        const depth=_
+        {
+         const _=true
+         {
+          const colors=_
+          {
+           const _=null
+           {
+            const maxArrayLength=_
+            {
+             const _=null
+             {
+              const maxStringLength=_
+              {
+               const _={showHidden,depth,colors,maxArrayLength,maxStringLength}
+               {
+                const o=_
+                {
+                 const _=util.inspect(x,o)
+                 {
+                  const s=_
+                  log(name,s)
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    else
+    {
+     const _=to_dump(x)
+     {
+      const s=_
+      log(name,s)
+     }
+    }
+   }
+   else if((typeof(is_browser)==="function")?is_browser():is_browser)
+   {
+    const _=to_dump(x)
+    {
+     const s=_
+     log(name,s)
+    }
+   }
+   else
+    stop()
+  }
+ }
+}
+function dup(x)
+{
+ check(is_container,x)
+ if(is_arr(x))
+  return slice(x,0)
+ else if(is_obj(x))
+ {
+  const _={}
+  {
+   const r=_
+   {
+    merge(r,x)
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ else
+  stop()
+}
+function every(x,y)
+{
+ check(is_arr,x)
+ check(is_fn,y)
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(!(y(v)))
+   return false
+ }
+ return true
+}
+function explode(x)
+{
+ check(is_str,x)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+    push(r,v)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function extract(x,y)
+{
+ check(is_arr,x)
+ check(is_def,y)
+ const _=false
+ {
+  let r=_
+  {
+   const _=dup(x)
+   {
+    const a=_
+    {
+     clear(x)
+     for(const v of (typeof(a)==="function")?a():a)
+     {
+      if(same(v,y))
+      {
+       r=true
+      }
+      else
+       push(x,v)
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function find(x,y)
+{
+ check(is_arr,x)
+ check(is_def,y)
+ const _=(typeof(y)==="function")?y():y
+ {
+  const value=_
+  {
+   function match(x)
+   {
+    return same(x,value)
+   }
+   return x.findIndex(match)
+  }
+ }
+}
+function flower(x)
+{
+ const _=(typeof(tty_width)==="function")?tty_width():tty_width
+ {
+  const n=_
+  {
+   if(is_undef(x))
+   {
+    const _=repeat("*",n)
+    {
+     const s=_
+     {
+      log(s)
+      return
+     }
+    }
+   }
+   check(is_str,x)
+   const _=repeat("*",n)
+   {
+    const s1=_
+    {
+     const _=repeat("*",2)
+     {
+      const s2=_
+      {
+       const _=concat(s2," ")
+       {
+        const s2=_
+        {
+         const _=concat(s2,x)
+         {
+          const s2=_
+          {
+           const _=concat(s2," ")
+           {
+            const s2=_
+            {
+             const _=concat(s2,s1)
+             {
+              const s2=_
+              {
+               const _=slice_l(s2,n)
+               {
+                const s2=_
+                log(s2)
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function fn_match(x)
+{
+ check(is_str,x)
+ const _={}
+ {
+  const r=_
+  {
+   for(const k in (typeof(fns)==="function")?fns():fns)
+   {
+    if(!(match(k,x)))
+     continue
+    const _=get(fns,k)
+    {
+     const v=_
+     put(r,k,v)
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function front(x)
+{
+ check(is_vec,x)
+ return at(x,0)
+}
+function get(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ check(has,x,y)
+ return x[y]
+}
+function gt(x,y)
+{
+ check(is_num,x)
+ check(is_num,y)
+ return x>y
+}
+function gte(x,y)
+{
+ check(is_num,x)
+ check(is_num,y)
+ return x>=y
+}
+function has(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ return y in x
+}
+function head(x,y)
+{
+ check(is_vec,x)
+ check(is_uint,y)
+ if(lt(x.length,y))
+ {
+  if(is_str(x))
+   return (typeof(x)==="function")?x():x
+  else if(is_arr(x))
+   return dup(x)
+  else
+   stop()
+ }
+ return slice_l(x,y)
+}
+function implode(x)
+{
+ check(is_arr,x)
+ return join(x,"")
+}
+function inc(x)
+{
+ check(is_num,x)
+ return add(x,1)
+}
+function indent(x,y)
+{
+ check(is_str,x)
+ if(is_undef(y))
+  return indent(x,1)
+ const _=[]
+ {
+  const a=_
+  {
+   for(const v of split(x))
+   {
+    const _=trim_r(v)
+    {
+     const s=_
+     {
+      if(is_empty(s))
+       push(a,s)
+      else
+      {
+       const _=repeat(" ",y)
+       {
+        const indent=_
+        {
+         const _=concat(indent,s)
+         {
+          const s=_
+          push(a,s)
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   return join(a)
+  }
+ }
+}
+function insert(x,y,...z)
+{
+ check(is_arr,x)
+ check(is_uint,y)
+ check(between,y,0,x.length)
+ x.splice(y,0,...z)
+}
+function is_access(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ const _=split(x,".")
+ {
+  const a=_
+  {
+   if(is_single(a))
+    return false
+   return every(a,is_identifier)
+  }
+ }
+}
+function is_alnum(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(same(v,"_"))
+  {
+  }
+  else if(is_alpha(v))
+  {
+  }
+  else if(is_digit(v))
+  {
+  }
+  else
+   return false
+ }
+ return true
+}
+function is_alpha(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(is_lower(v))
+  {
+  }
+  else if(is_upper(v))
+  {
+  }
+  else
+   return false
+ }
+ return true
+}
+function is_arr(x)
+{
+ return Array.isArray(x)
+}
+function is_atom(x)
+{
+ if(is_alnum(x))
+  return true
+ if(is_access(x))
+  return true
+ if(is_tuple(x))
+  return true
+ if(is_numeric(x))
+  return true
+ if(is_lit(x))
+  return true
+ if(is_lit_char(x))
+  return true
+ return false
+}
+function is_blank(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return true
+ if(is_space(x))
+  return true
+ return false
+}
+function is_bool(x)
+{
+ const _=typeof(x)
+ {
+  const s=_
+  return same(s,"boolean")
+ }
+}
+function is_browser()
+{
+ try
+ {
+  window
+ }
+ catch
+ {
+  return false
+ }
+ return true
+}
+function is_char(x)
+{
+ if(!(is_str(x)))
+  return false
+ return same(x.length,1)
+}
+function is_comment(x)
+{
+ if(!(is_ln(x)))
+  return false
+ return match_l(x,"//")
+}
+function is_container(x)
+{
+ if(is_arr(x))
+  return true
+ if(is_obj(x))
+  return true
+ return false
+}
+function is_cool(x)
+{
+ if(is_num(x))
+  return true
+ if(is_str(x))
+  return true
+ return false
+}
+function is_def(x)
+{
+ return !(is_undef(x))
+}
+function is_digit(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(!(contain(digit,v)))
+   return false
+ }
+ return true
+}
+function is_empty(x)
+{
+ if(is_vec(x))
+  return same(x.length,0)
+ if({x})
+ {
+  const _=obj_keys(x)
+  {
+   const keys=_
+   return is_empty(keys)
+  }
+ }
+ return false
+}
+function is_false(x)
+{
+ return same(x,false)
+}
+function is_fn(x)
+{
+ const _=typeof(x)
+ {
+  const s=_
+  {
+   if(different(s,"function"))
+    return false
+   if(same(x.constructor.name,"GeneratorFunction"))
+    return false
+   return true
+  }
+ }
+}
+function is_fragment(x)
+{
+ if(!(is_str(x)))
+  return true
+ if(is_alnum(x))
+  return true
+ if(is_space(x))
+  return true
+ return false
+}
+function is_full(x)
+{
+ if(is_vec(x))
+  return !(is_empty(x))
+ return false
+}
+function is_gn(x)
+{
+ const _=typeof(x)
+ {
+  const s=_
+  {
+   if(different(s,"function"))
+    return false
+   if(different(x.constructor.name,"GeneratorFunction"))
+    return false
+   return true
+  }
+ }
+}
+function is_identifier(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ const _=front(x)
+ {
+  const s=_
+  {
+   if(same(s,"_"))
+   {
+   }
+   else if(is_alpha(s))
+   {
+   }
+   else
+    return false
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    if(!(is_alnum(v)))
+     return false
+   }
+   return true
+  }
+ }
+}
+function is_indented(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of split(x))
+ {
+  if(is_empty(v))
+   continue
+  const _=front(v)
+  {
+   const c=_
+   {
+    if(!(is_space(c)))
+     return false
+   }
+  }
+ }
+ return true
+}
+function is_int(x)
+{
+ return Number.isInteger(x)
+}
+function is_ip(x)
+{
+ if(is_ip4(x))
+  return true
+ if(is_ip6(x))
+  return true
+ return false
+}
+function is_ip4(x)
+{
+ if(!(is_str(x)))
+  return false
+ const _=split(x,".")
+ {
+  const a=_
+  {
+   if(different(a.length,4))
+    return false
+   for(const v of (typeof(a)==="function")?a():a)
+   {
+    if(!(is_digit(v)))
+     return false
+    const _=to_uint(v)
+    {
+     const n=_
+     {
+      if(gt(n,255))
+       return false
+     }
+    }
+   }
+   return true
+  }
+ }
+}
+function is_ip6(x)
+{
+ if(!(is_str(x)))
+  return false
+ const _=split(x,":")
+ {
+  const a=_
+  {
+   if(lt(a.length,3))
+    return false
+   if(gt(a.length,8))
+    return false
+   for(const v of (typeof(a)==="function")?a():a)
+   {
+    if(is_empty(v))
+     continue
+    if(!(is_alnum(v)))
+     return false
+    if(contain(v,"_"))
+     return false
+    if(gt(v.length,4))
+     return false
+   }
+   return true
+  }
+ }
+}
+function is_json(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ try
+ {
+  json_decode(x)
+ }
+ catch
+ {
+  return false
+ }
+ return true
+}
+function is_last(x,y)
+{
+ check(is_arr,x)
+ check(is_uint,y)
+ const _=dec(x.length)
+ {
+  const n=_
+  return same(n,y)
+ }
+}
+function is_lisp(x)
+{
+ if(!(is_str(x)))
+  return false
+ const _=split(x,"-")
+ {
+  const a=_
+  return every(a,is_alnum)
+ }
+}
+function is_lit_char(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(!(match_l(x,"'")))
+  return false
+ if(!(match_r(x,"'")))
+  return false
+ const _=strip_l(x,"'")
+ {
+  const s=_
+  {
+   const _=strip_r(s,"'")
+   {
+    const s=_
+    {
+     if(is_empty(s))
+      return false
+     const _=concat("\"",s,"\"")
+     {
+      const s=_
+      return is_lit(s)
+     }
+    }
+   }
+  }
+ }
+}
+function is_lit(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(!(is_json(x)))
+  return false
+ const _=json_decode(x)
+ {
+  const v=_
+  {
+   if(!(is_str(v)))
+    return false
+   const _=json_encode(v)
+   {
+    const s=_
+    return same(s,x)
+   }
+  }
+ }
+}
+function is_ln(x)
+{
+ if(is_str(x))
+  return !(is_txt(x))
+ return false
+}
+function is_lower(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(!(contain(lower,v)))
+   return false
+ }
+ return true
+}
+function is_many(x)
+{
+ if(is_vec(x))
+  return gt(x.length,1)
+ return false
+}
+function is_name(x)
+{
+ if(is_identifier(x))
+  return true
+ if(is_access(x))
+  return true
+ if(is_tuple(x))
+  return true
+ return false
+}
+function is_node()
+{
+ return !((typeof(is_browser)==="function")?is_browser():is_browser)
+}
+function is_none(x)
+{
+ if(is_undef(x))
+  return true
+ if(is_null(x))
+  return true
+ return false
+}
+function is_noun(x)
+{
+ if(is_identifier(x))
+  return true
+ if(is_access(x))
+  return true
+ return false
+}
+function is_null(x)
+{
+ return same(x,null)
+}
+function is_num(x)
+{
+ if(Number.isNaN(x))
+  return false
+ if(same(x,Number.NEGATIVE_INFINITY))
+  return false
+ if(same(x,Number.POSITIVE_INFINITY))
+  return false
+ const _=typeof(x)
+ {
+  const s=_
+  return same(s,"number")
+ }
+}
+function is_numeric(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(!(is_json(x)))
+  return false
+ const _=json_decode(x)
+ {
+  const v=_
+  {
+   if(!(is_num(v)))
+    return false
+   const _=json_encode(v)
+   {
+    const s=_
+    return same(s,x)
+   }
+  }
+ }
+}
+function is_obj(x)
+{
+ if(is_null(x))
+  return false
+ const _=typeof(x)
+ {
+  const s=_
+  return same(s,"object")
+ }
+}
+function is_pair(x)
+{
+ if(!(is_vec(x)))
+  return false
+ return same(x.length,2)
+}
+function is_punct(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(!(contain(punct,v)))
+   return false
+ }
+ return true
+}
+function is_single(x)
+{
+ if(is_vec(x))
+  return same(x.length,1)
+ return false
+}
+function is_space(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ const _=trim(x)
+ {
+  const s=_
+  return is_empty(s)
+ }
+}
+function is_str(x)
+{
+ const _=typeof(x)
+ {
+  const s=_
+  return same(s,"string")
+ }
+}
+function is_token(x)
+{
+ if(is_atom(x))
+  return true
+ if(is_comment(x))
+  return true
+ return false
+}
+function is_trivia(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_space(x))
+  return true
+ if(is_comment(x))
+  return true
+ return false
+}
+function is_true(x)
+{
+ return same(x,true)
+}
+function is_tuple(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ const _=split(x,":")
+ {
+  const a=_
+  {
+   if(is_single(a))
+    return false
+   for(const v of (typeof(a)==="function")?a():a)
+   {
+    if(is_identifier(v))
+     continue
+    return false
+   }
+   return true
+  }
+ }
+}
+function is_txt(x)
+{
+ if(is_str(x))
+  return contain(x,"\n")
+ return false
+}
+function is_uint(x)
+{
+ if(is_int(x))
+  return gte(x,0)
+ return false
+}
+function is_undef(x)
+{
+ return same(x,undefined)
+}
+function is_upper(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ for(const v of (typeof(x)==="function")?x():x)
+ {
+  if(!(contain(upper,v)))
+   return false
+ }
+ return true
+}
+function is_url(x)
+{
+ if(!(is_ln(x)))
+  return false
+ if(match_l(x,"http://"))
+  return true
+ if(match_l(x,"https://"))
+  return true
+ return false
+}
+function is_vec(x)
+{
+ if(is_str(x))
+  return true
+ if(is_arr(x))
+  return true
+ return false
+}
+function is_word(x)
+{
+ if(!(is_str(x)))
+  return false
+ if(is_empty(x))
+  return false
+ if(contain(x," "))
+  return false
+ if(contain(x,"\n"))
+  return false
+ if(contain(x,"\r"))
+  return false
+ return true
+}
+function join(x,y)
+{
+ check(is_arr,x)
+ if(is_undef(y))
+  return join(x,"\n")
+ check(is_str,y)
+ return x.join(y)
+}
+function json_decode(x)
+{
+ check(is_str,x)
+ return JSON.parse(x)
+}
+function json_encode(x)
+{
+ check(is_def,x)
+ return JSON.stringify(x)
+}
+function log(...x)
+{
+ if(is_null(output))
+ {
+  console.log(...x)
+  return
+ }
+ const _=map(x,to_str)
+ {
+  const s=_
+  {
+   const _=join(s," ")
+   {
+    const s=_
+    {
+     const _=concat(s,"\n")
+     {
+      const s=_
+      {
+       const _=concat(output,s)
+       {
+        const s=_
+        {
+         global.output=(typeof(s)==="function")?s():s
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function lt(x,y)
+{
+ check(is_num,x)
+ check(is_num,y)
+ return x<y
+}
+function lte(x,y)
+{
+ check(is_num,x)
+ check(is_num,y)
+ return x<=y
+}
+function main_pump(...x)
+{
+ function deinit()
+ {
+  if((typeof(is_node)==="function")?is_node():is_node)
+   dir_change(cwd)
+  profile()
+ }
+ function profile()
+ {
+  const _=time_hn(start,false)
+  {
+   const profile=_
+   {
+    const _=to_lit(profile)
+    {
+     const profile=_
+     {
+      const _=concat("profile=",profile)
+      {
+       const profile=_
+       log(app,profile)
+      }
+     }
+    }
+   }
+  }
+ }
+ if((typeof(is_node)==="function")?is_node():is_node)
+ {
+  global.cwd=(typeof(dir_current)==="function")?dir_current():dir_current
+  const _=at(process.argv,1)
+  {
+   const script=_
+   {
+    const _=path_dir(script)
+    {
+     const dir=_
+     dir_change(dir)
+    }
+   }
+  }
+ }
+ else if((typeof(is_browser)==="function")?is_browser():is_browser)
+ {
+ }
+ else
+  stop()
+ if(is_fn(init))
+ {
+  init(...x)
+  deinit()
+ }
+ else if(is_gn(init))
+ {
+  const _=init(...x)
+  {
+   const generator=_
+   {
+    function on_timer()
+    {
+     const _=(typeof(generator.next)==="function")?generator.next():generator.next
+     {
+      const iterator=_
+      {
+       if((typeof(iterator.done)==="function")?iterator.done():iterator.done)
+       {
+        deinit()
+        return
+       }
+       time_timeout(on_timer)
+      }
+     }
+    }
+    on_timer()
+   }
+  }
+ }
+}
+function main()
+{
+ function get_fns()
+ {
+  const _=null
+  {
+   let content=_
+   {
+    if((typeof(is_node)==="function")?is_node():is_node)
+    {
+     const _=at(process.argv,1)
+     {
+      const script=_
+      {
+       content=file_read(script)
+      }
+     }
+    }
+    else if((typeof(is_browser)==="function")?is_browser():is_browser)
+    {
+     content=(typeof(html.innerHTML)==="function")?html.innerHTML():html.innerHTML
+    }
+    else
+     stop()
+    for(const v of (typeof(punct)==="function")?punct():punct)
+    {
+     content=replace(content,v," ")
+    }
+    const _=replace(content,"\n"," ")
+    {
+     const words=_
+     {
+      const _=replace_rec(content,"  "," ")
+      {
+       const words=_
+       {
+        const _=split(content," ")
+        {
+         const words=_
+         {
+          const _={}
+          {
+           const o=_
+           {
+            for(const v of (typeof(words)==="function")?words():words)
+            {
+             const _=(typeof(v)==="function")?v():v
+             {
+              const k=_
+              {
+               if(has(o,k))
+                continue
+               if(!(is_identifier(k)))
+                continue
+               const _=null
+               {
+                let v=_
+                {
+                 try
+                 {
+                  v=eval(k)
+                 }
+                 catch
+                 {
+                 }
+                 if(!(is_fn(v)))
+                  continue
+                 put(o,k,v)
+                }
+               }
+              }
+             }
+            }
+            return sort(o)
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ if((typeof(is_browser)==="function")?is_browser():is_browser)
+ {
+  window.global=(typeof(window)==="function")?window():window
+ }
+ global.zombie=false
+ global.start=(typeof(time_get)==="function")?time_get():time_get
+ global.punct="!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~"
+ global.digit="0123456789"
+ global.lower="abcdefghijklmnopqrstuvwxyz"
+ global.upper=to_upper(lower)
+ global.output=null
+ global.verbose=false
+ global.talks=[]
+ if((typeof(is_node)==="function")?is_node():is_node)
+  main_node()
+ else if((typeof(is_browser)==="function")?is_browser():is_browser)
+  main_browser()
+ else
+  stop()
+ global.fns=(typeof(get_fns)==="function")?get_fns():get_fns
+ for(const k in (typeof(fns)==="function")?fns():fns)
+ {
+  if(match(k,"init_*"))
+  {
+   const _=get(fns,k)
+   {
+    const v=_
+    v()
+   }
+  }
+ }
+ const _=time_hn(compile)
+ {
+  const compile=_
+  {
+   const _=to_lit(compile)
+   {
+    const compile=_
+    {
+     const _=concat("compile=",compile)
+     {
+      const compile=_
+      {
+       const _=(typeof(dbg_source)==="function")?dbg_source():dbg_source
+       {
+        const sloc=_
+        {
+         const _=split(sloc)
+         {
+          const sloc=_
+          {
+           const _=(typeof(sloc.length)==="function")?sloc.length():sloc.length
+           {
+            const sloc=_
+            {
+             const _=concat("sloc=",sloc)
+             {
+              const sloc=_
+              {
+               log(app,compile,sloc)
+               if((typeof(is_node)==="function")?is_node():is_node)
+               {
+                const _=slice(process.argv,2)
+                {
+                 const args=_
+                 {
+                  if(extract(args,"--verbose"))
+                  {
+                   verbose=true
+                  }
+                  main_pump(...args)
+                 }
+                }
+               }
+               else if((typeof(is_browser)==="function")?is_browser():is_browser)
+               {
+                function on_load()
+                {
+                 if(same(document.readyState,"complete"))
+                 {
+                  main_pump()
+                  window.onload=null
+                 }
+                }
+                window.onload=on(on_load)
+               }
+               else
+                stop()
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function map(x,y)
+{
+ check(is_arr,x)
+ check(is_fn,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=y(v)
+    {
+     const v=_
+     {
+      check(is_def,v)
+      push(r,v)
+     }
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function match_l(x,y)
+{
+ check(is_str,x)
+ check(is_str,y)
+ if(is_empty(x))
+  return false
+ if(is_empty(y))
+  return false
+ if(gt(y.length,x.length))
+  return false
+ const _=slice_l(x,y.length)
+ {
+  const s=_
+  return same(s,y)
+ }
+}
+function match_r(x,y)
+{
+ check(is_str,x)
+ check(is_str,y)
+ if(is_empty(x))
+  return false
+ if(is_empty(y))
+  return false
+ if(gt(y.length,x.length))
+  return false
+ const _=slice_r(x,y.length)
+ {
+  const s=_
+  return same(s,y)
+ }
+}
+function match(x,y)
+{
+ check(is_str,x)
+ check(is_str,y)
+ const _=replace(y,".","\\.")
+ {
+  const s=_
+  {
+   const _=replace(s,"*",".*")
+   {
+    const s=_
+    {
+     const _=concat("^",s,"$")
+     {
+      const s=_
+      {
+       const _=new RegExp(s)
+       {
+        const s=_
+        return s.test(x)
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function max(...x)
+{
+ return Math.max(...x)
+}
+function merge(x,y)
+{
+ check(is_obj,x)
+ check(is_obj,y)
+ Object.assign(x,y)
+}
+function min(...x)
+{
+ return Math.min(...x)
+}
+function mul(x,y,...z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ const _=x*y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return mul(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function nop()
+{
+}
+function obj_delete(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ const _={}
+ {
+  const r=_
+  {
+   for(const k in (typeof(x)==="function")?x():x)
+   {
+    if(same(k,y))
+     continue
+    const _=get(x,k)
+    {
+     const v=_
+     put(r,k,v)
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function obj_keys(x)
+{
+ check(is_obj,x)
+ return Object.keys(x)
+}
+function obj_length(x)
+{
+ check(is_obj,x)
+ const _=obj_keys(x)
+ {
+  const keys=_
+  return (typeof(keys.length)==="function")?keys.length():keys.length
+ }
+}
+function obj_vals(x)
+{
+ check(is_obj,x)
+ return Object.values(x)
+}
+function obj()
+{
+ return {}
+}
+function on(x)
+{
+ check(is_fn,x)
+ const _=x
+ {
+  const fn=_
+  {
+   function on_fn(...x)
+   {
+    if((typeof(zombie)==="function")?zombie():zombie)
+     return
+    try
+    {
+     return fn(...x)
+    }
+    catch(e)
+    {
+     zombie=true
+     throw (typeof(e)==="function")?e():e
+    }
+   }
+   if((typeof(zombie)==="function")?zombie():zombie)
+    stop()
+   return on_fn
+  }
+ }
+}
+function or(x,y,...z)
+{
+ check(is_bool,x)
+ check(is_bool,y)
+ const _=x||y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return or(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function pad_l(x,y,z)
+{
+ check(is_cool,x)
+ if(is_uint(x))
+ {
+  const _=to_json(x)
+  {
+   const s=_
+   {
+    if(is_undef(y))
+    {
+     if(is_undef(z))
+      return pad_l(s,"0",3)
+     return pad_l(s,"0",z)
+    }
+    return pad_l(s,y,z)
+   }
+  }
+ }
+ check(is_str,x)
+ check(is_str,y)
+ check(is_uint,z)
+ return x.padStart(z,y)
+}
+function pad_r(x,y,z)
+{
+ check(is_cool,x)
+ if(is_uint(x))
+ {
+  const _=to_json(x)
+  {
+   const s=_
+   {
+    if(is_undef(y))
+    {
+     if(is_undef(z))
+      return pad_r(s,"0",3)
+     return pad_r(s,"0",z)
+    }
+    return pad_r(s,y,z)
+   }
+  }
+ }
+ check(is_str,x)
+ check(is_str,y)
+ check(is_uint,z)
+ return x.padEnd(z,y)
+}
+function paren(x)
+{
+ check(is_str,x)
+ return concat("(",x,")")
+}
+function partial(x,...y)
+{
+ check(is_fn,x)
+ const _=x
+ {
+  const fn=_
+  {
+   const _=(typeof(y)==="function")?y():y
+   {
+    const parameters=_
+    {
+     function result(...x)
+     {
+      return fn(...y,...x)
+     }
+     return result
+    }
+   }
+  }
+ }
+}
+function path_concat(x,y)
+{
+ const _=strip_r(x,"/")
+ {
+  const x=_
+  {
+   const _=strip_l(y,"/")
+   {
+    const y=_
+    return concat(x,"/",y)
+   }
+  }
+ }
+}
+function path_file(x)
+{
+ check(is_str,x)
+ const _=path_base(x)
+ {
+  const s=_
+  {
+   const _=split(s,".")
+   {
+    const a=_
+    {
+     if(is_single(a))
+      return (typeof(s)==="function")?s():s
+     drop(a)
+     return join(a,".")
+    }
+   }
+  }
+ }
+}
+function path_fix(x)
+{
+ if(match_r(x,"/"))
+  return (typeof(x)==="function")?x():x
+ return concat(x,"/")
+}
+function pop(x,y)
+{
+ check(is_arr,x)
+ if(is_undef(y))
+  return pop(x,1)
+ check(is_uint,y)
+ const _=sub(x.length,y)
+ {
+  const n=_
+  {
+   if(same(y,1))
+   {
+    const _=back(x)
+    {
+     const r=_
+     {
+      remove(x,n,1)
+      return r
+     }
+    }
+   }
+   remove(x,n,y)
+  }
+ }
+}
+function prepend(x,y)
+{
+ check(is_arr,x)
+ check(is_arr,y)
+ const _=dup(y)
+ {
+  const a=_
+  {
+   reverse(a)
+   for(const v of (typeof(a)==="function")?a():a)
+    unshift(x,v)
+  }
+ }
+}
+function push(x,y)
+{
+ check(is_arr,x)
+ check(is_def,y)
+ x.push(y)
+}
+function put(x,y,z)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ check(is_def,z)
+ if(has(x,y))
+  stop()
+ set(x,y,z)
+}
+function random(x)
+{
+ if(is_undef(x))
+  return random(Number.MAX_SAFE_INTEGER)
+ check(is_num,x)
+ check(gte,x,0)
+ const _=(typeof(Math.random)==="function")?Math.random():Math.random
+ {
+  const r=_
+  {
+   const _=mul(r,x)
+   {
+    const r=_
+    {
+     if(is_uint(x))
+      return trunc(r)
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function reject(x,y)
+{
+ check(is_arr,x)
+ check(is_fn,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    if(y(v))
+     continue
+    push(r,v)
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function remove(x,y,z)
+{
+ check(is_arr,x)
+ check(is_uint,y)
+ if(is_undef(z))
+  return remove(x,y,1)
+ check(is_uint,z)
+ check(between,y,0,x.length)
+ const _=add(y,z)
+ {
+  const n=_
+  {
+   check(between,n,0,x.length)
+   x.splice(y,z)
+  }
+ }
+}
+function repeat(x,y)
+{
+ check(is_str,x)
+ check(is_uint,y)
+ return x.repeat(y)
+}
+function replace_rec(x,y,z)
+{
+ check(is_str,x)
+ check(is_str,y)
+ check(is_str,z)
+ const _=(typeof(x)==="function")?x():x
+ {
+  let r=_
+  {
+   while(contain(r,y))
+   {
+    r=replace(r,y,z)
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function replace(x,y,z)
+{
+ check(is_vec,x)
+ check(is_str,y)
+ check(is_str,z)
+ if(is_str(x))
+ {
+  const _=split(x,y)
+  {
+   const a=_
+   return join(a,z)
+  }
+ }
+ else if(is_arr(x))
+ {
+  const _=[]
+  {
+   const r=_
+   {
+    for(const v of (typeof(x)==="function")?x():x)
+    {
+     if(same(v,y))
+      push(r,z)
+     else
+      push(r,v)
+    }
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ else
+  stop()
+}
+function reverse(x)
+{
+ check(is_arr,x)
+ x.reverse()
+}
+function round(x)
+{
+ check(is_num,x)
+ return Math.round(x)
+}
+function salt(x,y)
+{
+ check(is_str,x)
+ if(is_undef(y))
+  return salt(x,"azertyuiop")
+ const _=""
+ {
+  let r=_
+  {
+   const _=explode(x)
+   {
+    const a1=_
+    {
+     const _=explode(y)
+     {
+      const a2=_
+      {
+       while(is_full(a1))
+       {
+        if(is_empty(a2))
+        {
+         const _=explode(y)
+         {
+          const a=_
+          append(a2,a)
+         }
+        }
+        const _=shift(a1)
+        {
+         const c1=_
+         {
+          const _=shift(a2)
+          {
+           const c2=_
+           {
+            const _=asc(c1)
+            {
+             const n1=_
+             {
+              const _=asc(c2)
+              {
+               const n2=_
+               {
+                const _=xor(n1,n2)
+                {
+                 const n=_
+                 {
+                  const _=chr(n)
+                  {
+                   const c=_
+                   {
+                    r=concat(r,c)
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+       return (typeof(r)==="function")?r():r
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function same(x,y)
+{
+ return x===y
+}
+function scan(x,y,z)
+{
+ check(is_str,x)
+ if(is_undef(y))
+  return scan(x,is_token)
+ check(is_fn,y)
+ if(is_undef(z))
+  return scan(x,y,is_fragment)
+ check(is_fn,z)
+ function group(x,y)
+ {
+  check(is_arr,x)
+  check(is_fn,y)
+  const _=[]
+  {
+   const r=_
+   {
+    const _=dup(x)
+    {
+     const fragments=_
+     {
+      while(is_full(fragments))
+      {
+       const _=reduce(fragments,y)
+       {
+        const a=_
+        {
+         if(is_full(a))
+         {
+          const _=implode(a)
+          {
+           const s=_
+           {
+            push(r,s)
+            shift(fragments,a.length)
+           }
+          }
+         }
+         else
+         {
+          const _=shift(fragments)
+          {
+           const s=_
+           push(r,s)
+          }
+         }
+        }
+       }
+      }
+      return (typeof(r)==="function")?r():r
+     }
+    }
+   }
+  }
+ }
+ function reduce(x)
+ {
+  check(is_arr,x)
+  check(is_fn,y)
+  check(is_full,x)
+  const _=dup(x)
+  {
+   const r=_
+   {
+    while(is_full(r))
+    {
+     const _=implode(r)
+     {
+      const s=_
+      {
+       if(y(s))
+        break
+       drop(r)
+      }
+     }
+    }
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ const _=delimit(x,z)
+ {
+  const a=_
+  return group(a,z)
+ }
+}
+function set(x,y,z)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ check(is_def,z)
+ x[y]=z
+}
+function shift(x,y)
+{
+ check(is_arr,x)
+ if(is_undef(y))
+  return shift(x,1)
+ check(is_uint,y)
+ if(same(y,1))
+ {
+  const _=front(x)
+  {
+   const r=_
+   {
+    remove(x,0,1)
+    return r
+   }
+  }
+ }
+ remove(x,0,y)
+}
+function shuffle(x)
+{
+ check(is_arr,x)
+ const _=[]
+ {
+  const r=_
+  {
+   const _=dup(x)
+   {
+    const a=_
+    {
+     while(is_full(a))
+     {
+      const _=random(a.length)
+      {
+       const n=_
+       {
+        const _=at(a,n)
+        {
+         const v=_
+         {
+          remove(a,n)
+          push(r,v)
+         }
+        }
+       }
+      }
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function* sleep(x)
+{
+ check(is_num,x)
+ check(gte,x,0)
+ const _=(typeof(time_now)==="function")?time_now():time_now
+ {
+  const start=_
+  {
+   while(true)
+   {
+    const _=(typeof(time_now)==="function")?time_now():time_now
+    {
+     const elapsed=_
+     {
+      const _=sub(elapsed,start)
+      {
+       const elapsed=_
+       {
+        if(gte(elapsed,x))
+         break
+        yield
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function slice_l(x,y)
+{
+ check(is_vec,x)
+ check(is_uint,y)
+ return slice(x,0,y)
+}
+function slice_r(x,y)
+{
+ check(is_vec,x)
+ check(is_uint,y)
+ const _=sub(x.length,y)
+ {
+  const n=_
+  return slice(x,n,y)
+ }
+}
+function slice(x,y,z)
+{
+ check(is_vec,x)
+ const _=inc(x.length)
+ {
+  const n1=_
+  {
+   check(between,y,0,n1)
+   if(is_undef(z))
+   {
+    const _=sub(x.length,y)
+    {
+     const n=_
+     return slice(x,y,n)
+    }
+   }
+   check(between,z,0,n1)
+   const _=add(y,z)
+   {
+    const n2=_
+    {
+     check(between,n2,0,n1)
+     return x.slice(y,n2)
+    }
+   }
+  }
+ }
+}
+function sort(x,y)
+{
+ check(is_container,x)
+ if(is_arr(x))
+ {
+  if(is_undef(y))
+   x.sort()
+  else
+   x.sort(y)
+ }
+ else if(is_obj(x))
+ {
+  function compare(x,y)
+  {
+   check(is_obj,x)
+   check(is_obj,x)
+   const _=cmp(x.key,y.key)
+   {
+    const r=_
+    {
+     if(same(r,0))
+     {
+      const _=cmp(x.value,y.value)
+      {
+       const r=_
+       return (typeof(r)==="function")?r():r
+      }
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+  if(is_undef(y))
+   return sort(x,compare)
+  const _={}
+  {
+   const r=_
+   {
+    const _=[]
+    {
+     const a=_
+     {
+      for(const k in (typeof(x)==="function")?x():x)
+      {
+       const _=(typeof(k)==="function")?k():k
+       {
+        const key=_
+        {
+         const _=get(x,k)
+         {
+          const value=_
+          {
+           const _={key,value}
+           {
+            const o=_
+            push(a,o)
+           }
+          }
+         }
+        }
+       }
+      }
+      sort(a,y)
+      for(const v of (typeof(a)==="function")?a():a)
+      {
+       const _=(typeof(v.key)==="function")?v.key():v.key
+       {
+        const k=_
+        put(r,v.key,v.value)
+       }
+      }
+      return (typeof(r)==="function")?r():r
+     }
+    }
+   }
+  }
+ }
+}
+function space(...x)
+{
+ return join(x," ")
+}
+function split(x,y)
+{
+ check(is_str,x)
+ if(is_undef(y))
+  return split(x,"\n")
+ if(is_empty(x))
+  return []
+ return x.split(y)
+}
+function stop()
+{
+ throw new Error("stop")
+}
+function str_indent(x)
+{
+ check(is_str,x)
+ if(is_blank(x))
+  return 0
+ const _=trim_l(x)
+ {
+  const s=_
+  return sub(x.length,s.length)
+ }
+}
+function str_unindent(x)
+{
+ check(is_str,x)
+ const _=(typeof(x)==="function")?x():x
+ {
+  let r=_
+  {
+   while(is_indented(r))
+   {
+    const _=[]
+    {
+     const a=_
+     {
+      for(const v of split(r))
+      {
+       if(is_empty(v))
+       {
+        push(a,v)
+        continue
+       }
+       const _=slice(v,1)
+       {
+        const s=_
+        push(a,s)
+       }
+      }
+      r=join(a)
+     }
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function strip_l(x,y)
+{
+ check(is_str,x)
+ check(is_str,y)
+ if(match_l(x,y))
+ {
+  const _=sub(x.length,y.length)
+  {
+   const n=_
+   return slice_r(x,n)
+  }
+ }
+ return (typeof(x)==="function")?x():x
+}
+function strip_r(x,y)
+{
+ check(is_str,x)
+ check(is_str,y)
+ if(match_r(x,y))
+ {
+  const _=sub(x.length,y.length)
+  {
+   const n=_
+   return slice_l(x,n)
+  }
+ }
+ return (typeof(x)==="function")?x():x
+}
+function sub(x,y,...z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ const _=x-y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return sub(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function tail(x,y)
+{
+ check(is_vec,x)
+ check(is_uint,y)
+ if(lt(x.length,y))
+ {
+  if(is_str(x))
+   return (typeof(x)==="function")?x():x
+  else if(is_arr(x))
+   return dup(x)
+  else
+   stop()
+ }
+ return slice_r(x,y)
+}
+function talk(...x)
+{
+ if(is_single(x))
+ {
+  const _=front(x)
+  {
+   const s=_
+   {
+    if(is_str(s))
+    {
+     const _=split(s)
+     {
+      const a=_
+      {
+       if(is_many(a))
+       {
+        for(const v of (typeof(a)==="function")?a():a)
+         talk(v)
+        return
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ if((typeof(verbose)==="function")?verbose():verbose)
+ {
+  log("debug>",...x)
+  return
+ }
+ push(talks,x)
+ if(gt(talks.length,512))
+  shift(talks)
+}
+function tbl_column(x,y)
+{
+ check(is_arr,x)
+ check(is_str,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=get(v,y)
+    {
+     const s=_
+     push(r,s)
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function tbl_columns(x)
+{
+ check(is_arr,x)
+ const _=front(x)
+ {
+  const first=_
+  return obj_keys(first)
+ }
+}
+function tbl_init(x)
+{
+ return []
+}
+function tbl_remove_column(x,y)
+{
+ check(is_arr,x)
+ check(is_str,y)
+ const _=dup(x)
+ {
+  const t=_
+  {
+   clear(x)
+   for(const v of (typeof(t)==="function")?t():t)
+   {
+    const _=obj_delete(v,y)
+    {
+     const v=_
+     push(x,v)
+    }
+   }
+  }
+ }
+}
+function tbl_render(x)
+{
+ check(is_arr,x)
+ function stringify_tbl(x)
+ {
+  check(is_arr,x)
+  const _=[]
+  {
+   const r=_
+   {
+    for(const v of (typeof(x)==="function")?x():x)
+    {
+     const _=dup(v)
+     {
+      const row=_
+      {
+       for(const k in (typeof(v)==="function")?v():v)
+       {
+        const _=get(row,k)
+        {
+         const v=_
+         {
+          if(is_str(v))
+           continue
+          const _=json_encode(v)
+          {
+           const s=_
+           set(row,k,s)
+          }
+         }
+        }
+       }
+       push(r,row)
+      }
+     }
+    }
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ function pad_column(x)
+ {
+  check(is_arr,x)
+  const _=[]
+  {
+   const r=_
+   {
+    const _=[]
+    {
+     const a=_
+     {
+      for(const v of (typeof(x)==="function")?x():x)
+      {
+       if(is_num(v))
+       {
+        const _=to_fixed(v)
+        {
+         const s=_
+         push(a,s)
+        }
+       }
+       else if(is_str(v))
+        push(a,v)
+       else
+        stop()
+      }
+      const _=0
+      {
+       let length=_
+       {
+        for(const v of (typeof(a)==="function")?a():a)
+        {
+         length=max(length,v.length)
+        }
+        for(const v of (typeof(a)==="function")?a():a)
+        {
+         if(is_numeric(v))
+         {
+          const _=pad_l(v," ",length)
+          {
+           const s=_
+           {
+            push(r,s)
+            continue
+           }
+          }
+         }
+         else if(is_str(v))
+         {
+          const _=pad_r(v," ",length)
+          {
+           const s=_
+           push(r,s)
+          }
+         }
+         else
+          stop()
+        }
+        return (typeof(r)==="function")?r():r
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ const _=stringify_tbl(x)
+ {
+  const tbl=_
+  {
+   const _=tbl_columns(tbl)
+   {
+    const titles=_
+    {
+     const _=[]
+     {
+      const columns=_
+      {
+       for(const v of (typeof(titles)==="function")?titles():titles)
+       {
+        const _=(typeof(v)==="function")?v():v
+        {
+         const title=_
+         {
+          const _=tbl_column(tbl,title)
+          {
+           const column=_
+           {
+            unshift(column,title)
+            const _=pad_column(column)
+            {
+             const column=_
+             push(columns,column)
+            }
+           }
+          }
+         }
+        }
+       }
+       const _=0
+       {
+        let length=_
+        {
+         for(const v of (typeof(columns)==="function")?columns():columns)
+         {
+          const _=front(v)
+          {
+           const s=_
+           {
+            length=add(length,s.length)
+           }
+          }
+         }
+         const _=[]
+         {
+          const a=_
+          {
+           const _=repeat("-",length)
+           {
+            const separator=_
+            {
+             push(a,separator)
+             const _=[]
+             {
+              const header=_
+              {
+               for(const v of (typeof(columns)==="function")?columns():columns)
+               {
+                const _=shift(v)
+                {
+                 const s=_
+                 push(header,s)
+                }
+               }
+               const _=join(header," ")
+               {
+                const s=_
+                {
+                 push(a,s)
+                 push(a,separator)
+                 const _=front(columns)
+                 {
+                  const first=_
+                  {
+                   for(const k in (typeof(first)==="function")?first():first)
+                   {
+                    const _=to_i(k)
+                    {
+                     const i=_
+                     {
+                      const _=[]
+                      {
+                       const line=_
+                       {
+                        for(const v of (typeof(columns)==="function")?columns():columns)
+                        {
+                         const _=at(v,i)
+                         {
+                          const s=_
+                          push(line,s)
+                         }
+                        }
+                        const _=join(line," ")
+                        {
+                         const s=_
+                         push(a,s)
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                   push(a,separator)
+                   return join(a)
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function time_get()
+{
+ const _=(typeof(Date.now)==="function")?Date.now():Date.now
+ {
+  const n=_
+  return div(n,1000)
+ }
+}
+function time_hn(x,y)
+{
+ check(is_num,x)
+ if(is_undef(y))
+  return time_hn(x,true)
+ check(is_bool,y)
+ function get_unit(x)
+ {
+  check(is_num,x)
+  const _=60
+  {
+   const minute=_
+   {
+    const _=mul(60,minute)
+    {
+     const hour=_
+     {
+      const _=mul(24,hour)
+      {
+       const day=_
+       {
+        const _=mul(30,day)
+        {
+         const month=_
+         {
+          const _=mul(12,month)
+          {
+           const year=_
+           {
+            if(lt(x,10))
+            {
+             const _=to_fixed(x)
+             {
+              const n=_
+              return concat(n,"s")
+             }
+            }
+            if(lt(x,minute))
+            {
+             const _=trunc(x)
+             {
+              const n=_
+              return concat(n,"s")
+             }
+            }
+            if(lt(x,hour))
+            {
+             const _=div(x,minute)
+             {
+              const n=_
+              {
+               const _=trunc(n)
+               {
+                const n=_
+                return concat(n,"m")
+               }
+              }
+             }
+            }
+            if(lt(x,day))
+            {
+             const _=div(x,hour)
+             {
+              const n=_
+              {
+               const _=trunc(n)
+               {
+                const n=_
+                return concat(n,"h")
+               }
+              }
+             }
+            }
+            if(lt(x,month))
+            {
+             const _=div(x,day)
+             {
+              const n=_
+              {
+               const _=trunc(n)
+               {
+                const n=_
+                return concat(n,"d")
+               }
+              }
+             }
+            }
+            if(lt(x,year))
+            {
+             const _=div(x,month)
+             {
+              const n=_
+              {
+               const _=trunc(n)
+               {
+                const n=_
+                return concat(n,"m")
+               }
+              }
+             }
+            }
+            const _=div(x,year)
+            {
+             const n=_
+             {
+              const _=trunc(n)
+              {
+               const n=_
+               return concat(n,"y")
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ const _=(typeof(time_get)==="function")?time_get():time_get
+ {
+  const now=_
+  {
+   if(same(x,now))
+    return "now"
+   if(gt(x,now))
+   {
+    const _=sub(x,now)
+    {
+     const n=_
+     {
+      const _=get_unit(n)
+      {
+       const s=_
+       {
+        if((typeof(y)==="function")?y():y)
+         return concat("in ",s)
+        return (typeof(s)==="function")?s():s
+       }
+      }
+     }
+    }
+   }
+   const _=sub(now,x)
+   {
+    const n=_
+    {
+     const _=get_unit(n)
+     {
+      const s=_
+      {
+       if((typeof(y)==="function")?y():y)
+        return concat(s," ago")
+       return (typeof(s)==="function")?s():s
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function time_interval(x,y)
+{
+ check(is_fn,x)
+ if(is_undef(y))
+  return time_interval(x,0)
+ check(is_uint,y)
+ const _=on(x)
+ {
+  const fn=_
+  {
+   const _=mul(y,1000)
+   {
+    const n=_
+    setInterval(fn,n)
+   }
+  }
+ }
+}
+function time_now()
+{
+ const _=(typeof(time_get)==="function")?time_get():time_get
+ {
+  const n=_
+  return sub(n,start)
+ }
+}
+function time_str(x)
+{
+ if(is_undef(x))
+ {
+  const _=(typeof(time_get)==="function")?time_get():time_get
+  {
+   const n=_
+   return time_str(n)
+  }
+ }
+ check(is_num,x)
+ const _=mul(x,1000)
+ {
+  const n=_
+  {
+   const _=new Date(n)
+   {
+    const o=_
+    {
+     const _=(typeof(o.getHours)==="function")?o.getHours():o.getHours
+     {
+      const h=_
+      {
+       const _=pad_l(h,"0",2)
+       {
+        const h=_
+        {
+         const _=(typeof(o.getMinutes)==="function")?o.getMinutes():o.getMinutes
+         {
+          const m=_
+          {
+           const _=pad_l(m,"0",2)
+           {
+            const m=_
+            return concat(h,"h",m,"m")
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function time_timeout(x,y)
+{
+ check(is_fn,x)
+ if(is_undef(y))
+  return time_timeout(x,0)
+ check(is_num,y)
+ const _=on(x)
+ {
+  const fn=_
+  {
+   const _=mul(y,1000)
+   {
+    const n=_
+    setTimeout(fn,n)
+   }
+  }
+ }
+}
+function to_base36(x)
+{
+ check(is_uint,x)
+ return x.toString(36)
+}
+function to_dump(x)
+{
+ check(is_def,x)
+ if(is_arr(x))
+ {
+  if(is_empty(x))
+   return "arr"
+  const _=[]
+  {
+   const a=_
+   {
+    push(a,"arr")
+    for(const k in (typeof(x)==="function")?x():x)
+    {
+     const _=to_i(k)
+     {
+      const i=_
+      {
+       const _=at(x,i)
+       {
+        const v=_
+        {
+         const _=to_dump(v)
+         {
+          const s=_
+          {
+           const _=concat("#",i)
+           {
+            const sharp=_
+            {
+             if(is_ln(s))
+             {
+              const _=space("",sharp,s)
+              {
+               const s=_
+               push(a,s)
+              }
+             }
+             else
+             {
+              const _=space("",sharp)
+              {
+               const s2=_
+               {
+                const _=indent(s,2)
+                {
+                 const s=_
+                 {
+                  push(a,s2)
+                  push(a,s)
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    push(a,"end")
+    return join(a)
+   }
+  }
+ }
+ else if(is_obj(x))
+ {
+  if(is_empty(x))
+   return "obj"
+  const _=[]
+  {
+   const a=_
+   {
+    push(a,"obj")
+    for(const k in (typeof(x)==="function")?x():x)
+    {
+     const _=get(x,k)
+     {
+      const v=_
+      {
+       const _=to_dump(v)
+       {
+        const s=_
+        {
+         const _=(typeof(k)==="function")?k():k
+         {
+          let key=_
+          {
+           if(!(is_word(key)))
+           {
+            key=to_lit(key)
+           }
+           if(is_ln(s))
+           {
+            const _=space("",key,s)
+            {
+             const s=_
+             push(a,s)
+            }
+           }
+           else
+           {
+            const _=space("",key)
+            {
+             const s2=_
+             {
+              const _=indent(s,2)
+              {
+               const s=_
+               {
+                push(a,s2)
+                push(a,s)
+                push(a,"end")
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    push(a,"end")
+    return join(a)
+   }
+  }
+ }
+ else if(is_word(x))
+  return to_lit(x)
+ else if(is_fn(x))
+  return space("fn",x.name)
+ else
+  return json_encode(x)
+}
+function to_fixed(x,y)
+{
+ check(is_num,x)
+ if(is_undef(y))
+  return to_fixed(x,2)
+ check(is_uint,y)
+ const _=x.toFixed(y)
+ {
+  const a=_
+  {
+   const _=split(a,".")
+   {
+    const a=_
+    {
+     if(is_single(a))
+      return (typeof(s)==="function")?s():s
+     const _=front(a)
+     {
+      const integer=_
+      {
+       const _=back(a)
+       {
+        let float=_
+        {
+         const _=explode(float)
+         {
+          const digits=_
+          {
+           while(is_full(digits))
+           {
+            const _=back(digits)
+            {
+             const c=_
+             {
+              if(different(c,"0"))
+               break
+              drop(digits)
+             }
+            }
+           }
+           if(is_empty(digits))
+            return (typeof(integer)==="function")?integer():integer
+           float=implode(digits)
+           return concat(integer,".",float)
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function to_i(x)
+{
+ check(is_str,x)
+ return Number.parseInt(x)
+}
+function to_int(x)
+{
+ check(is_str,x)
+ const _=to_num(x)
+ {
+  const r=_
+  {
+   check(is_int,r)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function to_json(x)
+{
+ check(is_def,x)
+ return json_encode(x)
+}
+function to_lit(x)
+{
+ check(is_str,x)
+ return json_encode(x)
+}
+function to_lower(x)
+{
+ check(is_str,x)
+ return (typeof(x.toLowerCase)==="function")?x.toLowerCase():x.toLowerCase
+}
+function to_num(x)
+{
+ check(is_str,x)
+ const _=json_decode(x)
+ {
+  const r=_
+  {
+   check(is_num,r)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function to_str(x)
+{
+ check(is_def,x)
+ return (typeof(x.toString)==="function")?x.toString():x.toString
+}
+function to_uint(x)
+{
+ check(is_str,x)
+ const _=to_int(x)
+ {
+  const r=_
+  {
+   check(is_uint,r)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function to_upper(x)
+{
+ check(is_str,x)
+ return (typeof(x.toUpperCase)==="function")?x.toUpperCase():x.toUpperCase
+}
+function trim_l(x)
+{
+ check(is_str,x)
+ return (typeof(x.trimStart)==="function")?x.trimStart():x.trimStart
+}
+function trim_r(x)
+{
+ check(is_str,x)
+ return (typeof(x.trimEnd)==="function")?x.trimEnd():x.trimEnd
+}
+function trim(x)
+{
+ check(is_str,x)
+ return (typeof(x.trim)==="function")?x.trim():x.trim
+}
+function trunc(x)
+{
+ check(is_num,x)
+ return Math.trunc(x)
+}
+function tty_width()
+{
+ if((typeof(is_node)==="function")?is_node():is_node)
+ {
+  const _=(typeof(process.stdout.columns)==="function")?process.stdout.columns():process.stdout.columns
+  {
+   const r=_
+   {
+    if(is_undef(r))
+     return 140
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ else if((typeof(is_browser)==="function")?is_browser():is_browser)
+  return 80
+ else
+  stop()
+}
+function txt_cut(x,y)
+{
+ if(is_str(x))
+ {
+  const _=split(x)
+  {
+   const a=_
+   {
+    const _=txt_cut(a,y)
+    {
+     const a=_
+     return join(a)
+    }
+   }
+  }
+ }
+ check(is_arr,x)
+ check(is_uint,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=head(v,y)
+    {
+     const s=_
+     push(r,s)
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function txt_prepend(x,y)
+{
+ if(is_str(x))
+ {
+  const _=split(x)
+  {
+   const a=_
+   {
+    const _=txt_prepend(a,y)
+    {
+     const a=_
+     return join(a)
+    }
+   }
+  }
+ }
+ check(is_arr,x)
+ check(is_str,y)
+ const _=[]
+ {
+  const r=_
+  {
+   for(const v of (typeof(x)==="function")?x():x)
+   {
+    const _=concat(y,v)
+    {
+     const s=_
+     push(r,s)
+    }
+   }
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function unshift(x,y)
+{
+ check(is_arr,x)
+ check(is_def,y)
+ x.unshift(y)
+}
+function unwrap(x)
+{
+ check(is_str,x)
+ if(is_lit(x))
+  return json_decode(x)
+ if(is_access(x))
+  return split(x,".")
+ if(is_tuple(x))
+  return split(x,":")
+ stop()
+}
+function xor(x,y,...z)
+{
+ check(is_num,x)
+ check(is_num,y)
+ const _=x^y
+ {
+  const r=_
+  {
+   if(is_full(z))
+    return xor(r,...z)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dom_a()
+{
+ return dom_init("a")
+}
+function dom_back_color(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.style.backgroundColor=(typeof(y)==="function")?y():y
+}
+function dom_border(x,y)
+{
+ check(is_obj,x)
+ if(is_undef(y))
+  return dom_border(x,"0.1vw solid gray")
+ check(is_str,y)
+ x.style.border=(typeof(y)==="function")?y():y
+}
+function dom_canvas()
+{
+ return dom_init("canvas")
+}
+function dom_center(x)
+{
+ check(is_obj,x)
+ x.style.textAlign="center"
+}
+function dom_class(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.className=(typeof(y)==="function")?y():y
+}
+function dom_dialog()
+{
+ const _=dom_init("dialog")
+ {
+  const r=_
+  {
+   dom_border(r)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dom_div()
+{
+ return dom_init("div")
+}
+function dom_escape(x)
+{
+ check(is_str,x)
+ const _=replace(x,"&","&amp;")
+ {
+  const r=_
+  {
+   const _=replace(r,"<","&lt;")
+   {
+    const r=_
+    {
+     const _=replace(r,">","&gt;")
+     {
+      const r=_
+      {
+       const _=replace(r,"&","&amp;")
+       {
+        const r=_
+        {
+         const _=replace(r,"\"","&quot;")
+         {
+          const r=_
+          {
+           const _=replace(r,"'","&#39;")
+           {
+            const r=_
+            return (typeof(r)==="function")?r():r
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function dom_font_family(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.style.fontFamily=(typeof(y)==="function")?y():y
+}
+function dom_font_size(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.style.fontSize=(typeof(y)==="function")?y():y
+}
+function dom_height(x,y)
+{
+ check(is_obj,x)
+ check(is_cool,y)
+ x.style.height=(typeof(y)==="function")?y():y
+}
+function dom_href(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.href=(typeof(y)==="function")?y():y
+}
+function dom_html(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.innerHTML=(typeof(y)==="function")?y():y
+}
+function dom_i()
+{
+ return dom_init("i")
+}
+function dom_id(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.id=(typeof(y)==="function")?y():y
+}
+function dom_iframe()
+{
+ return dom_init("iframe")
+}
+function dom_init(x)
+{
+ check(is_str,x)
+ return document.createElement(x)
+}
+function dom_link()
+{
+ return dom_init("link")
+}
+function* dom_load(x)
+{
+ check(is_obj,x)
+ const _=false
+ {
+  let done=_
+  {
+   function on_load(x)
+   {
+    check(is_obj,x)
+    done=true
+   }
+   x.onload=(typeof(on_load)==="function")?on_load():on_load
+   while(true)
+   {
+    if((typeof(done)==="function")?done():done)
+     break
+    yield
+   }
+  }
+ }
+}
+function dom_margin(x,y)
+{
+ check(is_obj,x)
+ check(is_cool,y)
+ x.style.margin=(typeof(y)==="function")?y():y
+}
+function dom_modal(x)
+{
+ check(is_obj,x)
+ x.showModal()
+}
+function dom_padding(x,y)
+{
+ check(is_obj,x)
+ check(is_cool,y)
+ x.style.padding=(typeof(y)==="function")?y():y
+}
+function dom_pre()
+{
+ const _=dom_init("pre")
+ {
+  const r=_
+  {
+   dom_margin(r,0)
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dom_push(x,y)
+{
+ check(is_obj,x)
+ check(is_obj,y)
+ x.append(y)
+}
+function dom_spacer()
+{
+ const _=(typeof(dom_div)==="function")?dom_div():dom_div
+ {
+  const r=_
+  {
+   dom_html(r,"&nbsp;")
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dom_span()
+{
+ return dom_init("span")
+}
+function dom_src(x,y)
+{
+ check(is_obj,x)
+ check(is_str,y)
+ x.src=(typeof(y)==="function")?y():y
+}
+function dom_table()
+{
+ const _=dom_init("table")
+ {
+  const r=_
+  {
+   r.style.borderCollapse="collapse"
+   return (typeof(r)==="function")?r():r
+  }
+ }
+}
+function dom_td()
+{
+ return dom_init("td")
+}
+function dom_text(x,y)
+{
+ check(is_obj,x)
+ check(is_cool,y)
+ x.textContent=(typeof(y)==="function")?y():y
+}
+function dom_th()
+{
+ return dom_init("th")
+}
+function dom_tr()
+{
+ return dom_init("tr")
+}
+function dom_width(x,y)
+{
+ check(is_obj,x)
+ check(is_cool,y)
+ x.style.width=(typeof(y)==="function")?y():y
+}
+function is_chrome()
+{
+ const _=to_lower(navigator.userAgent)
+ {
+  const agent=_
+  return contain(agent,"chrome")
+ }
+}
+function is_desktop()
+{
+ return !((typeof(is_phone)==="function")?is_phone():is_phone)
+}
+function is_firefox()
+{
+ const _=to_lower(navigator.userAgent)
+ {
+  const agent=_
+  return contain(agent,"firefox")
+ }
+}
+function is_phone()
+{
+ const _=to_lower(navigator.userAgent)
+ {
+  const agent=_
+  {
+   if(contain(agent,"iphone"))
+    return true
+   if(contain(agent,"android"))
+    return true
+   return false
+  }
+ }
+}
+function main_browser()
+{
+ function on_error(x,y,z,a,b)
+ {
+  check(is_str,x)
+  check(is_str,y)
+  check(is_uint,z)
+  check(is_uint,a)
+  check(is_obj,b)
+  log(b)
+  const _=dbg_report(b)
+  {
+   const report=_
+   {
+    const _=(typeof(dom_dialog)==="function")?dom_dialog():dom_dialog
+    {
+     const dialog=_
+     {
+      dom_font_family(dialog,"monospace")
+      dom_font_size(dialog,"1.1vw")
+      const _=(typeof(dom_div)==="function")?dom_div():dom_div
+      {
+       const div_title=_
+       {
+        const _=paren(report.title)
+        {
+         const s=_
+         {
+          const _=space("An error has occured",s)
+          {
+           const s=_
+           {
+            const _=concat(s,".")
+            {
+             const s=_
+             {
+              dom_text(div_title,s)
+              const _=(typeof(dom_pre)==="function")?dom_pre():dom_pre
+              {
+               const pre_talk=_
+               {
+                const _=(typeof(dom_pre)==="function")?dom_pre():dom_pre
+                {
+                 const pre_cs=_
+                 {
+                  const _=(typeof(dom_pre)==="function")?dom_pre():dom_pre
+                  {
+                   const pre_js=_
+                   {
+                    const _=(typeof(dom_pre)==="function")?dom_pre():dom_pre
+                    {
+                     const pre_backtrace=_
+                     {
+                      dom_text(pre_talk,report.talk)
+                      dom_text(pre_cs,report.cs)
+                      dom_text(pre_backtrace,report.backtrace)
+                      dom_text(pre_js,report.js)
+                      const _=(typeof(dom_div)==="function")?dom_div():dom_div
+                      {
+                       const div_continue=_
+                       {
+                        dom_text(div_continue,"Refresh the page or go to another URL to continue.")
+                        const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+                        {
+                         const spacer1=_
+                         {
+                          const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+                          {
+                           const spacer2=_
+                           {
+                            const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+                            {
+                             const spacer3=_
+                             {
+                              const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+                              {
+                               const spacer4=_
+                               {
+                                const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+                                {
+                                 const spacer5=_
+                                 {
+                                  dom_push(dialog,div_title)
+                                  if(is_full(report.talk))
+                                  {
+                                   dom_push(dialog,spacer1)
+                                   dom_push(dialog,pre_talk)
+                                  }
+                                  if(is_full(report.cs))
+                                  {
+                                   dom_push(dialog,spacer2)
+                                   dom_push(dialog,pre_cs)
+                                   dom_push(dialog,spacer3)
+                                  }
+                                  if(is_full(report.backtrace))
+                                  {
+                                   dom_push(dialog,pre_backtrace)
+                                   dom_push(dialog,spacer4)
+                                  }
+                                  if(is_full(report.js))
+                                  {
+                                   dom_push(dialog,pre_js)
+                                   dom_push(dialog,spacer5)
+                                  }
+                                  dom_push(dialog,div_continue)
+                                  dom_push(body,dialog)
+                                  dom_modal(dialog)
+                                  return true
+                                 }
+                                }
+                               }
+                              }
+                             }
+                            }
+                           }
+                          }
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+ global.html=(typeof(document.documentElement)==="function")?document.documentElement():document.documentElement
+ global.body=(typeof(document.body)==="function")?document.body():document.body
+ global.font="1.5vw monospace"
+ window.onerror=on_error
+}
+function path_base(x)
+{
+ check(is_str,x)
+ const _=split(x,"/")
+ {
+  const a=_
+  return back(a)
+ }
+}
+function tbl_dom(x)
+{
+ check(is_arr,x)
+ const _=(typeof(dom_table)==="function")?dom_table():dom_table
+ {
+  const r=_
+  {
+   const _=(typeof(dom_tr)==="function")?dom_tr():dom_tr
+   {
+    const tr=_
+    {
+     for(const v of tbl_columns(x))
+     {
+      const _=(typeof(dom_td)==="function")?dom_td():dom_td
+      {
+       const th=_
+       {
+        dom_text(th,v)
+        dom_border(th)
+        dom_push(tr,th)
+       }
+      }
+     }
+     dom_push(r,tr)
+     for(const v of (typeof(x)==="function")?x():x)
+     {
+      const _=(typeof(dom_tr)==="function")?dom_tr():dom_tr
+      {
+       const tr=_
+       {
+        const _=(typeof(v)==="function")?v():v
+        {
+         const row=_
+         {
+          for(const k in (typeof(row)==="function")?row():row)
+          {
+           const _=get(row,k)
+           {
+            const v=_
+            {
+             const _=(typeof(dom_td)==="function")?dom_td():dom_td
+             {
+              const td=_
+              {
+               dom_text(td,v)
+               dom_border(td)
+               dom_push(r,td)
+              }
+             }
+            }
+           }
+          }
+          dom_push(r,tr)
+         }
+        }
+       }
+      }
+     }
+     return (typeof(r)==="function")?r():r
+    }
+   }
+  }
+ }
+}
+function* xhr_load(x,y)
+{
+ check(is_str,x)
+ if(is_undef(y))
+ {
+  const _=new XMLHttpRequest
+  {
+   const xhr=_
+   return yield* xhr_load(x,xhr)
+  }
+ }
+ check(is_obj,y)
+ const _=(typeof(y)==="function")?y():y
+ {
+  let xhr=_
+  {
+   const _=null
+   {
+    let result=_
+    {
+     const _=false
+     {
+      let done=_
+      {
+       function on_load()
+       {
+        const _=typeof(xhr.response)
+        {
+         const s=_
+         {
+          const _=(typeof(xhr.response)==="function")?xhr.response():xhr.response
+          {
+           const response=_
+           {
+            if(is_json(response))
+            {
+             result=json_decode(response)
+            }
+            else
+            {
+             result=(typeof(response)==="function")?response():response
+            }
+            done=true
+           }
+          }
+         }
+        }
+       }
+       function on_error()
+       {
+        const _=to_lit("error")
+        {
+         const s=_
+         {
+          log("xhr",s)
+          result=false
+          done=true
+         }
+        }
+       }
+       xhr.onload=on(on_load)
+       xhr.onerror=on(on_error)
+       xhr.open("get",x)
+       xhr.send()
+       while(true)
+       {
+        if((typeof(done)==="function")?done():done)
+         break
+        yield
+       }
+       return (typeof(result)==="function")?result():result
+      }
+     }
+    }
+   }
+  }
+ }
+}
+function* init(...x)
+{
+ function slash()
+ {
+  const _=(typeof(dom_span)==="function")?dom_span():dom_span
+  {
+   const r=_
+   {
+    dom_html(r,"&nbsp/&nbsp;")
+    return (typeof(r)==="function")?r():r
+   }
+  }
+ }
+ document.title="CV de Marc Abiven"
+ const _="1.4vw"
+ {
+  let font_size=_
+  {
+   if((typeof(is_phone)==="function")?is_phone():is_phone)
+   {
+    font_size="3.4vw"
+   }
+   const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+   {
+    const spacer1=_
+    {
+     const _=(typeof(dom_spacer)==="function")?dom_spacer():dom_spacer
+     {
+      const spacer2=_
+      {
+       const _=(typeof(slash)==="function")?slash():slash
+       {
+        const slash1=_
+        {
+         const _=(typeof(slash)==="function")?slash():slash
+         {
+          const slash2=_
+          {
+           dom_font_family(body,"monospace")
+           dom_font_size(body,font_size)
+           dom_margin(body,0)
+           dom_padding(body,font_size)
+           const _=(typeof(dom_div)==="function")?dom_div():dom_div
+           {
+            const menu=_
+            {
+             const _=(typeof(dom_a)==="function")?dom_a():dom_a
+             {
+              const a1=_
+              {
+               const _=(typeof(dom_a)==="function")?dom_a():dom_a
+               {
+                const a2=_
+                {
+                 const _=(typeof(dom_a)==="function")?dom_a():dom_a
+                 {
+                  const a3=_
+                  {
+                   dom_center(menu)
+                   dom_href(a1,"marc-abiven-2025-07-28-developpeur-informatique.pdf")
+                   dom_text(a1,"Télécharger le PDF")
+                   dom_href(a2,"https://www.linkedin.com/in/marc-abiven/")
+                   dom_text(a2,"Linkedin")
+                   dom_href(a3,"https://discord.com/channels/1268201144300077213/1268201144300077216")
+                   dom_text(a3,"Discord")
+                   dom_push(menu,a1)
+                   dom_push(menu,slash1)
+                   dom_push(menu,a2)
+                   dom_push(menu,slash2)
+                   dom_push(menu,a3)
+                   const _=(typeof(dom_div)==="function")?dom_div():dom_div
+                   {
+                    const div1=_
+                    {
+                     const _=(typeof(dom_div)==="function")?dom_div():dom_div
+                     {
+                      const div2=_
+                      {
+                       dom_center(div1)
+                       dom_center(div2)
+                       const _=(typeof(dom_iframe)==="function")?dom_iframe():dom_iframe
+                       {
+                        const iframe1=_
+                        {
+                         const _=(typeof(dom_iframe)==="function")?dom_iframe():dom_iframe
+                         {
+                          const iframe2=_
+                          {
+                           dom_src(iframe1,"/cv/developpeur.html")
+                           dom_width(iframe1,"210mm")
+                           dom_border(iframe1)
+                           dom_src(iframe2,"/cv/details.html")
+                           dom_width(iframe2,"210mm")
+                           dom_border(iframe2)
+                           if((typeof(is_phone)==="function")?is_phone():is_phone)
+                           {
+                            dom_height(iframe1,"272mm")
+                            dom_height(iframe2,"241mm")
+                           }
+                           else
+                           {
+                            dom_height(iframe1,"310mm")
+                            dom_height(iframe2,"280mm")
+                           }
+                           dom_push(div1,iframe1)
+                           dom_push(div2,iframe2)
+                           dom_push(body,menu)
+                           dom_push(body,spacer1)
+                           dom_push(body,div1)
+                           dom_push(body,spacer2)
+                           dom_push(body,div2)
+                          }
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+const app="cv"
+const compile=1755704762
+const pool=["lib-common/abs.cs","lib-common/add.cs","lib-common/and.cs","lib-common/angle.cs","lib-common/append.cs","lib-common/arr.cs","lib-common/asc.cs","lib-common/at.cs","lib-common/back.cs","lib-common/base36-decode.cs","lib-common/base36-encode.cs","lib-common/between.cs","lib-common/brace.cs","lib-common/bracket.cs","lib-common/byte-size.cs","lib-common/capture.cs","lib-common/check.cs","lib-common/chr.cs","lib-common/clear.cs","lib-common/clone.cs","lib-common/cmp.cs","lib-common/collate.cs","lib-common/concat.cs","lib-common/contain.cs","lib-common/crc.cs","lib-common/date-decode.cs","lib-common/date-str.cs","lib-common/dbg/dbg-backtrace.cs","lib-common/dbg/dbg-callstack.cs","lib-common/dbg/dbg-origin-xs.cs","lib-common/dbg/dbg-origin.cs","lib-common/dbg/dbg-report.cs","lib-common/dbg/dbg-source-map.cs","lib-common/dbg/dbg-source.cs","lib-common/dec.cs","lib-common/dedup.cs","lib-common/delimit.cs","lib-common/different.cs","lib-common/div.cs","lib-common/drop.cs","lib-common/dump.cs","lib-common/dup.cs","lib-common/every.cs","lib-common/explode.cs","lib-common/extract.cs","lib-common/find.cs","lib-common/flower.cs","lib-common/fn-match.cs","lib-common/front.cs","lib-common/get.cs","lib-common/gt.cs","lib-common/gte.cs","lib-common/has.cs","lib-common/head.cs","lib-common/implode.cs","lib-common/inc.cs","lib-common/indent.cs","lib-common/insert.cs","lib-common/is/is-access.cs","lib-common/is/is-alnum.cs","lib-common/is/is-alpha.cs","lib-common/is/is-arr.cs","lib-common/is/is-atom.cs","lib-common/is/is-blank.cs","lib-common/is/is-bool.cs","lib-common/is/is-browser.cs","lib-common/is/is-char.cs","lib-common/is/is-comment.cs","lib-common/is/is-container.cs","lib-common/is/is-cool.cs","lib-common/is/is-def.cs","lib-common/is/is-digit.cs","lib-common/is/is-empty.cs","lib-common/is/is-false.cs","lib-common/is/is-fn.cs","lib-common/is/is-fragment.cs","lib-common/is/is-full.cs","lib-common/is/is-gn.cs","lib-common/is/is-identifier.cs","lib-common/is/is-indented.cs","lib-common/is/is-int.cs","lib-common/is/is-ip.cs","lib-common/is/is-ip4.cs","lib-common/is/is-ip6.cs","lib-common/is/is-json.cs","lib-common/is/is-last.cs","lib-common/is/is-lisp.cs","lib-common/is/is-lit-char.cs","lib-common/is/is-lit.cs","lib-common/is/is-ln.cs","lib-common/is/is-lower.cs","lib-common/is/is-many.cs","lib-common/is/is-name.cs","lib-common/is/is-node.cs","lib-common/is/is-none.cs","lib-common/is/is-noun.cs","lib-common/is/is-null.cs","lib-common/is/is-num.cs","lib-common/is/is-numeric.cs","lib-common/is/is-obj.cs","lib-common/is/is-pair.cs","lib-common/is/is-punct.cs","lib-common/is/is-single.cs","lib-common/is/is-space.cs","lib-common/is/is-str.cs","lib-common/is/is-token.cs","lib-common/is/is-trivia.cs","lib-common/is/is-true.cs","lib-common/is/is-tuple.cs","lib-common/is/is-txt.cs","lib-common/is/is-uint.cs","lib-common/is/is-undef.cs","lib-common/is/is-upper.cs","lib-common/is/is-url.cs","lib-common/is/is-vec.cs","lib-common/is/is-word.cs","lib-common/join.cs","lib-common/json-decode.cs","lib-common/json-encode.cs","lib-common/log.cs","lib-common/lt.cs","lib-common/lte.cs","lib-common/main-pump.cs","lib-common/main.cs","lib-common/map.cs","lib-common/match-l.cs","lib-common/match-r.cs","lib-common/match.cs","lib-common/max.cs","lib-common/merge.cs","lib-common/min.cs","lib-common/mul.cs","lib-common/nop.cs","lib-common/obj-delete.cs","lib-common/obj-keys.cs","lib-common/obj-length.cs","lib-common/obj-vals.cs","lib-common/obj.cs","lib-common/on.cs","lib-common/or.cs","lib-common/pad-l.cs","lib-common/pad-r.cs","lib-common/paren.cs","lib-common/partial.cs","lib-common/path-concat.cs","lib-common/path-file.cs","lib-common/path-fix.cs","lib-common/pop.cs","lib-common/prepend.cs","lib-common/push.cs","lib-common/put.cs","lib-common/random.cs","lib-common/reject.cs","lib-common/remove.cs","lib-common/repeat.cs","lib-common/replace-rec.cs","lib-common/replace.cs","lib-common/reverse.cs","lib-common/round.cs","lib-common/salt.cs","lib-common/same.cs","lib-common/scan.cs","lib-common/set.cs","lib-common/shift.cs","lib-common/shuffle.cs","lib-common/sleep.cs","lib-common/slice-l.cs","lib-common/slice-r.cs","lib-common/slice.cs","lib-common/sort.cs","lib-common/space.cs","lib-common/split.cs","lib-common/stop.cs","lib-common/str-indent.cs","lib-common/str-unindent.cs","lib-common/strip-l.cs","lib-common/strip-r.cs","lib-common/sub.cs","lib-common/tail.cs","lib-common/talk.cs","lib-common/tbl/tbl-column.cs","lib-common/tbl/tbl-columns.cs","lib-common/tbl/tbl-init.cs","lib-common/tbl/tbl-remove-column.cs","lib-common/tbl/tbl-render.cs","lib-common/time/time-get.cs","lib-common/time/time-hn.cs","lib-common/time/time-interval.cs","lib-common/time/time-now.cs","lib-common/time/time-str.cs","lib-common/time/time-timeout.cs","lib-common/to/to-base36.cs","lib-common/to/to-dump.cs","lib-common/to/to-fixed.cs","lib-common/to/to-i.cs","lib-common/to/to-int.cs","lib-common/to/to-json.cs","lib-common/to/to-lit.cs","lib-common/to/to-lower.cs","lib-common/to/to-num.cs","lib-common/to/to-str.cs","lib-common/to/to-uint.cs","lib-common/to/to-upper.cs","lib-common/trim-l.cs","lib-common/trim-r.cs","lib-common/trim.cs","lib-common/trunc.cs","lib-common/tty-width.cs","lib-common/txt-cut.cs","lib-common/txt-prepend.cs","lib-common/unshift.cs","lib-common/unwrap.cs","lib-common/xor.cs","lib-browser/dom/dom-a.cs","lib-browser/dom/dom-back-color.cs","lib-browser/dom/dom-border.cs","lib-browser/dom/dom-canvas.cs","lib-browser/dom/dom-center.cs","lib-browser/dom/dom-class.cs","lib-browser/dom/dom-dialog.cs","lib-browser/dom/dom-div.cs","lib-browser/dom/dom-escape.cs","lib-browser/dom/dom-font-family.cs","lib-browser/dom/dom-font-size.cs","lib-browser/dom/dom-height.cs","lib-browser/dom/dom-href.cs","lib-browser/dom/dom-html.cs","lib-browser/dom/dom-i.cs","lib-browser/dom/dom-id.cs","lib-browser/dom/dom-iframe.cs","lib-browser/dom/dom-init.cs","lib-browser/dom/dom-link.cs","lib-browser/dom/dom-load.cs","lib-browser/dom/dom-margin.cs","lib-browser/dom/dom-modal.cs","lib-browser/dom/dom-padding.cs","lib-browser/dom/dom-pre.cs","lib-browser/dom/dom-push.cs","lib-browser/dom/dom-spacer.cs","lib-browser/dom/dom-span.cs","lib-browser/dom/dom-src.cs","lib-browser/dom/dom-table.cs","lib-browser/dom/dom-td.cs","lib-browser/dom/dom-text.cs","lib-browser/dom/dom-th.cs","lib-browser/dom/dom-tr.cs","lib-browser/dom/dom-width.cs","lib-browser/is-chrome.cs","lib-browser/is-desktop.cs","lib-browser/is-firefox.cs","lib-browser/is-phone.cs","lib-browser/main-browser.cs","lib-browser/path-base.cs","lib-browser/tbl-dom.cs","lib-browser/xhr-load.cs","spa-cv/init.cs","fn abs x"," check is_num x",""," ret Math.abs x","end","fn add x y z:etc"," check is_num y"," let r inline \"x+y\""," if is_full z","  ret add r z:etc"," ret r","fn and x y z:etc"," check is_bool x"," check is_bool y"," let r inline \"x&&y\"","  ret and r z:etc","fn angle x"," check is_str x"," ret concat \"<\" x \">\"","fn append x y"," check is_arr x"," check is_arr y"," forof y","  push x v"," end","fn arr x:etc"," ret inline \"[...x]\"","fn asc x"," check is_char x"," ret x.charCodeAt 0","fn at x y z"," check is_vec x"," check is_uint y"," let n dec x.length"," check between y 0 n"," if is_undef z","  ret inline \"x[y]\""," inline \"x[y]=z\"","fn back x y z"," if is_undef y","  ret back x 0"," let n sub x.length y"," let n dec n","  ret at x n"," at x n z","fn base36_decode x"," var r \"\""," let a explode x"," while is_full a","  let a2 slice_l a 4","  shift a 4","  let s implode a2","  let n Number.parseInt s 36","  let range mul 256 256","  check is_uint n","  check lte n range","  let c chr n","  assign r concat r c","fn base36_encode x"," forof x","  let s asc v","  let s to_base36 s","  let s pad_l s \"0\" 4","  assign r concat r s","fn between x y z"," check is_num z"," check gte z y"," if lt x y","  ret false"," if gt x z"," ret true","fn brace x"," ret concat \"{\" x \"}\"","fn bracket x"," ret concat \"[\" x \"]\"","fn byte_size x"," check is_uint x"," check gte x 0"," let kb 1024"," let mb mul kb 1024"," let gb mul mb 1024"," let tb mul gb 1024"," if lt x kb","  let s to_fixed x","  ret concat s \"b\""," if lt x mb","  let s div x kb","  let s trunc s","  let s to_fixed s","  ret concat s \"Kb\""," if lt x gb","  let s div x mb","  ret concat s \"Mb\""," if lt x tb","  let s div x gb","  ret concat s \"Gb\""," let s div x tb"," let s trunc s"," let s to_fixed s"," ret concat s \"Tb\"","fn capture x y:etc"," check is_fn x"," check is_null output"," assign global.output \"\""," x y:etc"," let r output"," let r trim_r r"," assign global.output null","fn check x y:etc"," if is_true x","  if is_empty y","   ret"," elseif is_fn x","  let b x y:etc","  if is_true b"," stop","fn chr x"," ret String.fromCharCode x","fn clear x"," x.splice 0","fn clone x"," check is_def x"," ret structuredClone x","fn cmp x y"," check is_def y"," if inline \"x>y\"","  ret 1"," if inline \"x<y\"","  ret -1"," ret 0","fn collate x"," fn is_delimited x","  if same x \"_\"","   ret false","  if is_punct x","   ret true","  if is_space x"," let a arr","  if is_empty a","   push a v","   cont","  end","  let left back a","  let left back left","  let right front v","  if is_delimited left","  elseif is_delimited right","  else","   push a right","  let s concat left right","  drop a","  push a s"," ret join a \" \"","fn concat x:etc"," ret implode x","fn contain x y"," if is_str x","  check is_str y"," ret x.includes y","fn crc x"," var r 0"," forin a","  let i to_i k","  let s at a i","  forin s","   let i to_i k","   let v at s i","   let n asc v","   assign r add r n","fn date_decode x"," let r new Date x"," let r r.getTime"," let r div r 1000"," let r trunc r","fn date_str x"," if is_undef x","  let n time_get","  ret date_str n"," let n mul x 1000"," let o new Date n"," let y o.getFullYear"," let m o.getMonth"," let m inc m"," let m pad_l m \"0\" 2"," let d o.getDate"," let d pad_l d \"0\" 2"," ret concat y \"/\" m \"/\" d","fn dbg_backtrace x","  let e new Error \"backtrace\"","  ret dbg_backtrace e.stack"," fn parse_numbers x","  check is_arr x","  let r arr","  forof x","   if not is_numeric v","    cont","   let n json_decode v","   if not is_uint n","   push r n","  ret r"," let r arr"," let stack trim x"," let stack split stack"," let map dbg_source_map"," forin stack","  let v at stack i","  if is_node","   let script at process.argv 1","   if not contain v script","  let s trim v","  let s replace s \"@\" \" \"","  let a split s \" \"","  let s front a","  if same s \"at\"","   shift a","  var fn shift a","  if is_empty fn","   assign fn \"anonymous\"","  if not is_noun fn","  let a shift a","  let a scan a is_atom","  let a parse_numbers a","  if not is_many a","  let njs back a 1","  var index dec njs","  if gte index map.source.length","  let location at map.source index","  let js trim location.js","  let cs trim location.cs","  let path location.path","  let ncs location.index","  let ncs inc location.index","  let o obj fn njs js path ncs cs","  push r o","fn dbg_callstack x","  let e new Error \"callstack\"","  ret dbg_callstack e.stack"," let r dbg_backtrace x"," while is_full r","  let frame front r","  let fn frame.fn","  if same fn \"throw\"","  elseif same fn \"stop\"","  elseif same fn \"check\"","   brk","  shift r","fn dbg_origin_xs x y","  let e new Error \"origin-xs\"","  ret dbg_origin_xs e.stack"," check is_str y"," let frames dbg_callstack x"," let frames head frames 4"," forin frames","  let v at frames i","  var t null","  var title null","  if same y \"cs\"","   let file get map.files v.path","   let line v.ncs","   assign t dbg_origin file line","   assign stack \"stack\"","  elseif same y \"js\"","   let line v.njs","   assign t dbg_origin map.source line \"js\"","   assign stack \"javacript\"","   stop","  let s tbl_render t","  let s txt_prepend s \"> \"","  let n inc i","  let s2 concat \"#\" n","  let s2 space \"stack frame\" s2","  flower s2","  log s","fn dbg_origin source line key depth"," check is_arr source"," check is_uint line"," if is_undef key","  ret dbg_origin source line \"\" depth"," check is_str key"," if is_undef depth","  ret dbg_origin source line key 15"," check is_uint depth"," fn origin source line key depth","  check is_arr source","  check is_uint line","  check is_str key","  check is_uint depth","  let a arr","  let n div depth 2","  let n trunc n","  var n sub line n","  let length min source.length depth","  let nup add n length","  if lt n 1","   assign n 1","  elseif gte nup source.length","   assign n sub source.length length","   assign n inc n","   if lt n 1","    assign n 1","  fornum length","   let n add n i","   var p \" \"","   if same n line","    assign p \">\"","   let index dec n","   var code at source index","   if is_empty key","    check is_str code","   else","    assign code get code key","   end","   let o obj n p code","   push a o","  let a2 arr","  forof a","   push a2 v.code","  let s join a2","  let s str_unindent s","  let a3 split s","  forin a3","   let code at a3 i","   let o at a i","   assign o.code code","   if is_empty v.code","   push r v"," var r origin source line key depth"," if gte r.length depth"," var n inc depth"," while lte n source.length","  assign r origin source line key n","  if gte r.length depth","  assign n inc n","fn dbg_report x"," check is_obj x"," fn log_talk","  if is_empty talks","  flower \"log\"","  forof talks","   log \"debug>\" v:etc"," fn log_backtrace x","  check is_str x","  let backtrace dbg_backtrace x","  tbl_remove_column backtrace \"njs\"","  tbl_remove_column backtrace \"js\"","  let backtrace tbl_render backtrace","  let backtrace txt_prepend backtrace \"> \"","  if is_full backtrace","   flower \"backtrace\"","   log backtrace"," let stack x.stack"," let title space x.constructor.name \"/\" x.message \"/\" app"," let talk capture log_talk"," let cs capture dbg_origin_xs stack \"cs\""," let backtrace capture log_backtrace stack"," let js capture dbg_origin_xs stack \"js\""," flower title"," if is_full talk","  log talk"," log cs"," log backtrace"," log js"," ret obj title talk cs backtrace js","fn dbg_source_map"," let lines_js dbg_source"," let lines_js split lines_js"," let paths arr"," forof relatives","  let path at pool v","  push paths path"," let files obj"," forin contents","  let content get contents k","  let n to_uint k","  let path at pool n","  let lines arr","  forof content","   let s at pool v","   push lines s","  put files path lines"," let source arr"," if is_node"," elseif is_browser","  fornum 7","   push source null"," forin paths","  var n i","  if gte n paths.length","  let path at paths n","  let index at indices n","  var js n","  elseif is_browser","   assign js add js 5","  let js at lines_js js","  let cs get files path","  let cs at cs index","  let o obj path index js cs","  push source o"," ret obj files source","fn dbg_source x"," fn get_source","   let path at process.argv 1","   let s file_read path","   ret s","   ret html.outerHTML","  assign r get_source"," else","  assign r file_read x"," let r split r"," while true","  let s pop r","  if match_l s \"const app=\""," let r join r","fn dec x"," ret sub x 1","fn dedup x","  if not contain r v","fn delimit x y","  ret delimit x is_fragment"," check is_fn y","  let right v","  if is_empty r","   push r right","  let left back r","  let fragment concat left right","  if is_fragment fragment","   drop r","   push r fragment","fn different x y"," ret inline \"x!==y\"","fn div x y z:etc"," check different y 0"," let r inline \"x/y\"","  ret div r z:etc","fn drop x y","  ret drop x 1"," pop x y","fn dump x"," fn find_arg_name","  forof dbg_callstack","   let cs v.cs","   if not match cs \"dump *\"","   let a split cs \" \"","   ret back a","  stop"," let name find_arg_name","  if process.stdout.isTTY","   let showHidden false","   let depth null","   let colors true","   let maxArrayLength null","   let maxStringLength null","   let o obj showHidden depth colors maxArrayLength maxStringLength","   let s util.inspect x o","   log name s","   let s to_dump x","  let s to_dump x","  log name s","fn dup x"," check is_container x"," if is_arr x","  ret slice x 0"," elseif is_obj x","  let r obj","  merge r x","fn every x y","  if not y v","fn explode x","  push r v","fn extract x y"," var r false"," let a dup x"," clear x"," forof a","  if same v y","   assign r true","   push x v","fn find x y"," let value y"," fn match x","  ret same x value"," ret x.findIndex match","fn flower x"," let n tty_width","  let s repeat \"*\" n","  ret"," let s1 repeat \"*\" n"," let s2 repeat \"*\" 2"," let s2 concat s2 \" \""," let s2 concat s2 x"," let s2 concat s2 s1"," let s2 slice_l s2 n"," log s2","fn fn_match x"," let r obj"," forin fns","  if not match k x","  let v get fns k","  put r k v","fn front x"," ret at x 0","fn get x y"," check has x y"," ret inline \"x[y]\"","fn gt x y"," ret inline \"x>y\"","fn gte x y"," ret inline \"x>=y\"","fn has x y"," ret inline \"y in x\"","fn head x y"," if lt x.length y","  if is_str x","   ret x","  elseif is_arr x","   ret dup x"," ret slice_l x y","fn implode x"," ret join x \"\"","fn inc x"," ret add x 1","fn indent x y","  ret indent x 1"," forof split x","  let s trim_r v","  if is_empty s","   push a s","   let indent repeat \" \" y","   let s concat indent s"," ret join a","fn insert x y z:etc"," check between y 0 x.length"," x.splice y 0 z:etc","fn is_access x"," if not is_str x"," if is_empty x"," let a split x \".\""," if is_single a"," ret every a is_identifier","fn is_alnum x","  if same v \"_\"","  elseif is_alpha v","  elseif is_digit v","fn is_alpha x","  if is_lower v","  elseif is_upper v","fn is_arr x"," ret Array.isArray x","fn is_atom x"," if is_alnum x","  ret true"," if is_access x"," if is_tuple x"," if is_numeric x"," if is_lit x"," if is_lit_char x"," ret false","fn is_blank x"," if is_space x","fn is_bool x"," let s typeof x"," ret same s \"boolean\"","fn is_browser"," try","  inline \"window\""," catch","fn is_char x"," ret same x.length 1","fn is_comment x"," if not is_ln x"," ret match_l x \"//\"","fn is_container x"," if is_obj x","fn is_cool x"," if is_num x","fn is_def x"," ret not is_undef x","fn is_digit x","  if not contain digit v","fn is_empty x"," if is_vec x","  ret same x.length 0"," if obj x","  let keys obj_keys x","  ret is_empty keys","fn is_false x"," ret same x false","fn is_fn x"," if different s \"function\""," if same x.constructor.name \"GeneratorFunction\"","fn is_fragment x","fn is_full x","  ret not is_empty x","fn is_gn x"," if different x.constructor.name \"GeneratorFunction\"","fn is_identifier x"," let s front x"," if same s \"_\""," elseif is_alpha s","  if not is_alnum v","fn is_indented x","  if is_empty v","  let c front v","  if not is_space c","fn is_int x"," ret Number.isInteger x","fn is_ip x"," if is_ip4 x"," if is_ip6 x","fn is_ip4 x"," if different a.length 4","  if not is_digit v","  let n to_uint v","  if gt n 255","fn is_ip6 x"," let a split x \":\""," if lt a.length 3"," if gt a.length 8","  if contain v \"_\"","  if gt v.length 4","fn is_json x","  json_decode x","fn is_last x y"," ret same n y","fn is_lisp x"," let a split x \"-\""," ret every a is_alnum","fn is_lit_char x"," if not match_l x \"'\""," if not match_r x \"'\""," let s strip_l x \"'\""," let s strip_r s \"'\""," if is_empty s"," let s concat \"\\\"\" s \"\\\"\""," ret is_lit s","fn is_lit x"," if not is_json x"," let v json_decode x"," if not is_str v"," let s json_encode v"," ret same s x","fn is_ln x","  ret not is_txt x","fn is_lower x","  if not contain lower v","fn is_many x","  ret gt x.length 1","fn is_name x"," if is_identifier x","fn is_node"," ret not is_browser","fn is_none x"," if is_null x","fn is_noun x","fn is_null x"," ret same x null","fn is_num x"," if Number.isNaN x"," if same x Number.NEGATIVE_INFINITY"," if same x Number.POSITIVE_INFINITY"," ret same s \"number\"","fn is_numeric x"," if not is_num v","fn is_obj x"," ret same s \"object\"","fn is_pair x"," if not is_vec x"," ret same x.length 2","fn is_punct x","  if not contain punct v","fn is_single x","  ret same x.length 1","fn is_space x"," let s trim x"," ret is_empty s","fn is_str x"," ret same s \"string\"","fn is_token x"," if is_atom x"," if is_comment x","fn is_trivia x","fn is_true x"," ret same x true","fn is_tuple x","  if is_identifier v","fn is_txt x","  ret contain x \"\\n\"","fn is_uint x"," if is_int x","  ret gte x 0","fn is_undef x"," ret same x undefined","fn is_upper x","  if not contain upper v","fn is_url x"," if match_l x \"http://\""," if match_l x \"https://\"","fn is_vec x","fn is_word x"," if contain x \" \""," if contain x \"\\n\""," if contain x \"\\r\"","fn join x y","  ret join x \"\\n\""," ret x.join y","fn json_decode x"," ret JSON.parse x","fn json_encode x"," ret JSON.stringify x","fn log x:etc"," if is_null output","  console.log x:etc"," let s map x to_str"," let s join s \" \""," let s concat s \"\\n\""," let s concat output s"," assign global.output s","fn lt x y"," ret inline \"x<y\"","fn lte x y"," ret inline \"x<=y\"","fn main_pump x:etc"," fn deinit","   dir_change cwd","  profile"," fn profile","  let profile time_hn start false","  let profile to_lit profile","  let profile concat \"profile=\" profile","  log app profile","  assign global.cwd dir_current","  let script at process.argv 1","  let dir path_dir script","  dir_change dir"," if is_fn init","  init x:etc","  deinit"," elseif is_gn init","  let generator init x:etc","  fn on_timer","   let iterator generator.next","   if iterator.done","    deinit","    ret","   time_timeout on_timer","  on_timer","fn main"," fn get_fns","  var content null","   assign content file_read script","   assign content html.innerHTML","  forof punct","   assign content replace content v \" \"","  let words replace content \"\\n\" \" \"","  let words replace_rec content \"  \" \" \"","  let words split content \" \"","  let o obj","  forof words","   let k v","   if has o k","   if not is_identifier k","   var v null","   try","    assign v eval k","   catch","   if not is_fn v","   put o k v","  ret sort o"," if is_browser","  assign window.global window"," assign global.zombie false"," assign global.start time_get"," assign global.punct \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^`{|}~\""," assign global.digit \"0123456789\""," assign global.lower \"abcdefghijklmnopqrstuvwxyz\""," assign global.upper to_upper lower"," assign global.verbose false"," assign global.talks arr","  main_node","  main_browser"," assign global.fns get_fns","  if match k \"init_*\"","   let v get fns k","   v"," let compile time_hn compile"," let compile to_lit compile"," let compile concat \"compile=\" compile"," let sloc dbg_source"," let sloc split sloc"," let sloc sloc.length"," let sloc concat \"sloc=\" sloc"," log app compile sloc","  let args slice process.argv 2","  if extract args \"--verbose\"","   assign verbose true","  main_pump args:etc","  fn on_load","   if same document.readyState \"complete\"","    main_pump","    assign window.onload null","  assign window.onload on on_load","fn map x y","  let v y v","  check is_def v","fn match_l x y"," if is_empty y"," if gt y.length x.length"," let s slice_l x y.length"," ret same s y","fn match_r x y"," let s slice_r x y.length","fn match x y"," let s replace y \".\" \"\\\\.\""," let s replace s \"*\" \".*\""," let s concat \"^\" s \"$\""," let s new RegExp s"," ret s.test x","fn max x:etc"," ret Math.max x:etc","fn merge x y"," check is_obj y"," Object.assign x y","fn min x:etc"," ret Math.min x:etc","fn mul x y z:etc"," let r inline \"x*y\"","  ret mul r z:etc","fn nop","fn obj_delete x y"," forin x","  if same k y","  let v get x k","fn obj_keys x"," ret Object.keys x","fn obj_length x"," let keys obj_keys x"," ret keys.length","fn obj_vals x"," ret Object.values x","fn obj"," ret inline \"{}\"","fn on x"," let fn value x"," fn on_fn x:etc","  if zombie","  try","   ret fn x:etc","  catch e","   assign zombie true","   throw e"," if zombie"," ret value on_fn","fn or x y z:etc"," let r inline \"x||y\"","  ret or r z:etc","fn pad_l x y z"," check is_cool x"," if is_uint x","  let s to_json x","  if is_undef y","   if is_undef z","    ret pad_l s \"0\" 3","   ret pad_l s \"0\" z","  ret pad_l s y z"," check is_uint z"," ret x.padStart z y","fn pad_r x y z","    ret pad_r s \"0\" 3","   ret pad_r s \"0\" z","  ret pad_r s y z"," ret x.padEnd z y","fn paren x"," ret concat \"(\" x \")\"","fn partial x y:etc"," let parameters y"," fn result x:etc","  ret fn y:etc x:etc"," ret value result","fn path_concat x y"," let x strip_r x \"/\""," let y strip_l y \"/\""," ret concat x \"/\" y","fn path_file x"," let s path_base x"," let a split s \".\"","  ret s"," drop a"," ret join a \".\"","fn path_fix x"," if match_r x \"/\"","  ret x"," ret concat x \"/\"","fn pop x y","  ret pop x 1"," if same y 1","  let r back x","  remove x n 1","  ret value r"," remove x n y","fn prepend x y"," let a dup y"," reverse a","  unshift x v","fn push x y"," x.push y","fn put x y z"," check is_def z"," if has x y"," set x y z","fn random x","  ret random Number.MAX_SAFE_INTEGER"," let r Math.random"," let r mul r x","  ret trunc r","fn reject x y","  if y v","fn remove x y z","  ret remove x y 1"," let n add y z"," check between n 0 x.length"," x.splice y z","fn repeat x y"," ret x.repeat y","fn replace_rec x y z"," check is_str z"," var r x"," while contain r y","  assign r replace r y z","fn replace x y z","  let a split x y","  ret join a z"," elseif is_arr x","   if same v y","    push r z","    push r v","fn reverse x"," x.reverse","fn round x"," ret Math.round x","fn salt x y","  ret salt x \"azertyuiop\""," let a1 explode x"," let a2 explode y"," while is_full a1","  if is_empty a2","   let a explode y","   append a2 a","  let c1 shift a1","  let c2 shift a2","  let n1 asc c1","  let n2 asc c2","  let n xor n1 n2","fn same x y"," ret inline \"x===y\"","fn scan x y z","  ret scan x is_token","  ret scan x y is_fragment"," check is_fn z"," fn group x y","  check is_fn y","  let fragments dup x","  while is_full fragments","   let a reduce fragments y","   if is_full a","    let s implode a","    push r s","    shift fragments a.length","    let s shift fragments"," fn reduce x","  check is_full x","  let r dup x","  while is_full r","   let s implode r","   if y s","    brk"," let a delimit x z"," ret group a z","fn set x y z","fn shift x y","  ret shift x 1","  let r front x","  remove x 0 1"," remove x 0 y","fn shuffle x","  let n random a.length","  let v at a n","  remove a n","gn sleep x"," let start time_now","  let elapsed time_now","  let elapsed sub elapsed start","  if gte elapsed x","  yield","fn slice_l x y"," ret slice x 0 y","fn slice_r x y"," ret slice x n y","fn slice x y z"," let n1 inc x.length"," check between y 0 n1","  let n sub x.length y","  ret slice x y n"," check between z 0 n1"," let n2 add y z"," check between n2 0 n1"," ret x.slice y n2","fn sort x y","   x.sort","   x.sort y","  fn compare x y","   check is_obj x","   let r cmp x.key y.key","   if same r 0","    let r cmp x.value y.value","    ret r","   ret r","   ret sort x compare","  forin x","   let key k","   let value get x k","   let o obj key value","  sort a y","   let k v.key","   put r v.key v.value","fn space x:etc"," ret join x \" \"","fn split x y","  ret split x \"\\n\"","  ret arr"," ret x.split y","fn stop"," throw new Error \"stop\"","fn str_indent x"," if is_blank x","  ret 0"," let s trim_l x"," ret sub x.length s.length","fn str_unindent x"," while is_indented r","  forof split r","   if is_empty v","    push a v","   let s slice v 1","  assign r join a","fn strip_l x y"," if match_l x y","  let n sub x.length y.length","  ret slice_r x n"," ret x","fn strip_r x y"," if match_r x y","  ret slice_l x n","fn sub x y z:etc"," let r inline \"x-y\"","  ret sub r z:etc","fn tail x y"," ret slice_r x y","fn talk x:etc"," if is_single x","  let s front x","  if is_str s","   let a split s","   if is_many a","    forof a","     talk v","    end"," if verbose","  log \"debug>\" x:etc"," push talks x"," if gt talks.length 512","  shift talks","fn tbl_column x y","  let s get v y","  push r s","fn tbl_columns x"," let first front x"," ret obj_keys first","fn tbl_init x"," ret arr","fn tbl_remove_column x y"," let t dup x"," forof t","  let v obj_delete v y","fn tbl_render x"," fn stringify_tbl x","   let row dup v","   forin v","    let v get row k","    if is_str v","     cont","    let s json_encode v","    set row k s","   push r row"," fn pad_column x","   if is_num v","    let s to_fixed v","    push a s","   elseif is_str v","    stop","  var length 0","   assign length max length v.length","   if is_numeric v","    let s pad_l v \" \" length","    let s pad_r v \" \" length"," let tbl stringify_tbl x"," let titles tbl_columns tbl"," let columns arr"," forof titles","  let title v","  let column tbl_column tbl title","  unshift column title","  let column pad_column column","  push columns column"," var length 0"," forof columns","  let s front v","  assign length add length s.length"," let separator repeat \"-\" length"," push a separator"," let header arr","  let s shift v","  push header s"," let s join header \" \""," push a s"," let first front columns"," forin first","  let line arr","  forof columns","   let s at v i","   push line s","  let s join line \" \"","fn time_get"," let n Date.now"," ret div n 1000","fn time_hn x y","  ret time_hn x true"," fn get_unit x","  check is_num x","  let minute 60","  let hour mul 60 minute","  let day mul 24 hour","  let month mul 30 day","  let year mul 12 month","  if lt x 10","   let n to_fixed x","   ret concat n \"s\"","  if lt x minute","   let n trunc x","  if lt x hour","   let n div x minute","   let n trunc n","   ret concat n \"m\"","  if lt x day","   let n div x hour","   ret concat n \"h\"","  if lt x month","   let n div x day","   ret concat n \"d\"","  if lt x year","   let n div x month","  let n div x year","  ret concat n \"y\""," let now time_get"," if same x now","  ret \"now\""," if gt x now","  let n sub x now","  let s get_unit n","  if y","   ret concat \"in \" s"," let n sub now x"," let s get_unit n"," if y","  ret concat s \" ago\""," ret s","fn time_interval x y","  ret time_interval x 0"," let fn on x"," let n mul y 1000"," setInterval fn n","fn time_now"," let n time_get"," ret sub n start","fn time_str x","  ret time_str n"," let h o.getHours"," let h pad_l h \"0\" 2"," let m o.getMinutes"," ret concat h \"h\" m \"m\"","fn time_timeout x y","  ret time_timeout x 0"," setTimeout fn n","fn to_base36 x"," ret x.toString 36","fn to_dump x","  if is_empty x","   ret \"arr\"","  push a \"arr\"","   let v at x i","   let s to_dump v","   let sharp concat \"#\" i","   if is_ln s","    let s space \"\" sharp s","    let s2 space \"\" sharp","    let s indent s 2","    push a s2","  push a \"end\"","  ret join a","   ret \"obj\"","  push a \"obj\"","   let v get x k","   var key k","   if not is_word key","    assign key to_lit key","    let s space \"\" key s","    let s2 space \"\" key","    push a \"end\""," elseif is_word x","  ret to_lit x","  ret space \"fn\" x.name","  ret json_encode x","fn to_fixed x y","  ret to_fixed x 2"," let a x.toFixed y"," let a split a \".\""," let integer front a"," var float back a"," let digits explode float"," while is_full digits","  let c back digits","  if different c \"0\"","  drop digits"," if is_empty digits","  ret integer"," assign float implode digits"," ret concat integer \".\" float","fn to_i x"," ret Number.parseInt x","fn to_int x"," let r to_num x"," check is_int r","fn to_json x"," ret json_encode x","fn to_lit x","fn to_lower x"," ret x.toLowerCase","fn to_num x"," let r json_decode x"," check is_num r","fn to_str x"," ret x.toString","fn to_uint x"," let r to_int x"," check is_uint r","fn to_upper x"," ret x.toUpperCase","fn trim_l x"," ret x.trimStart","fn trim_r x"," ret x.trimEnd","fn trim x"," ret x.trim","fn trunc x"," ret Math.trunc x","fn tty_width","  let r process.stdout.columns","  if is_undef r","   ret 140","  ret 80","fn txt_cut x y","  let a split x","  let a txt_cut a y","  let s head v y","fn txt_prepend x y","  let a txt_prepend a y","  let s concat y v","fn unshift x y"," x.unshift y","fn unwrap x","  ret json_decode x","  ret split x \".\"","  ret split x \":\"","fn xor x y z:etc"," let r inline \"x^y\"","  ret xor r z:etc","fn dom_a"," ret dom_init \"a\"","fn dom_back_color x y"," assign x.style.backgroundColor y","fn dom_border x y","  ret dom_border x \"0.1vw solid gray\""," assign x.style.border y","fn dom_canvas"," ret dom_init \"canvas\"","fn dom_center x"," assign x.style.textAlign \"center\"","fn dom_class x y"," assign x.className y","fn dom_dialog"," let r dom_init \"dialog\""," dom_border r","fn dom_div"," ret dom_init \"div\"","fn dom_escape x"," let r replace x \"&\" \"&amp;\""," let r replace r \"<\" \"&lt;\""," let r replace r \">\" \"&gt;\""," let r replace r \"&\" \"&amp;\""," let r replace r \"\\\"\" \"&quot;\""," let r replace r \"'\" \"&#39;\"","fn dom_font_family x y"," assign x.style.fontFamily y","fn dom_font_size x y"," assign x.style.fontSize y","fn dom_height x y"," check is_cool y"," assign x.style.height y","fn dom_href x y"," assign x.href y","fn dom_html x y"," assign x.innerHTML y","fn dom_i"," ret dom_init \"i\"","fn dom_id x y"," assign x.id y","fn dom_iframe"," ret dom_init \"iframe\"","fn dom_init x"," ret document.createElement x","fn dom_link"," ret dom_init \"link\"","gn dom_load x"," var done false"," fn on_load x","  check is_obj x","  assign done true"," assign x.onload on_load","  if done","fn dom_margin x y"," assign x.style.margin y","fn dom_modal x"," x.showModal","fn dom_padding x y"," assign x.style.padding y","fn dom_pre"," let r dom_init \"pre\""," dom_margin r 0","fn dom_push x y"," x.append y","fn dom_spacer"," let r dom_div"," dom_html r \"&nbsp;\"","fn dom_span"," ret dom_init \"span\"","fn dom_src x y"," assign x.src y","fn dom_table"," let r dom_init \"table\""," assign r.style.borderCollapse \"collapse\"","fn dom_td"," ret dom_init \"td\"","fn dom_text x y"," assign x.textContent y","fn dom_th"," ret dom_init \"th\"","fn dom_tr"," ret dom_init \"tr\"","fn dom_width x y"," assign x.style.width y","fn is_chrome"," let agent to_lower navigator.userAgent"," ret contain agent \"chrome\"","fn is_desktop"," ret not is_phone","fn is_firefox"," ret contain agent \"firefox\"","fn is_phone"," if contain agent \"iphone\""," if contain agent \"android\"","fn main_browser"," fn on_error x y z a b","  check is_uint z","  check is_uint a","  check is_obj b","  log b","  let report dbg_report b","  let dialog dom_dialog","  dom_font_family dialog \"monospace\"","  dom_font_size dialog \"1.1vw\"","  let div_title dom_div","  let s paren report.title","  let s space \"An error has occured\" s","  let s concat s \".\"","  dom_text div_title s","  let pre_talk dom_pre","  let pre_cs dom_pre","  let pre_js dom_pre","  let pre_backtrace dom_pre","  dom_text pre_talk report.talk","  dom_text pre_cs report.cs","  dom_text pre_backtrace report.backtrace","  dom_text pre_js report.js","  let div_continue dom_div","  dom_text div_continue \"Refresh the page or go to another URL to continue.\"","  let spacer1 dom_spacer","  let spacer2 dom_spacer","  let spacer3 dom_spacer","  let spacer4 dom_spacer","  let spacer5 dom_spacer","  dom_push dialog div_title","  if is_full report.talk","   dom_push dialog spacer1","   dom_push dialog pre_talk","  if is_full report.cs","   dom_push dialog spacer2","   dom_push dialog pre_cs","   dom_push dialog spacer3","  if is_full report.backtrace","   dom_push dialog pre_backtrace","   dom_push dialog spacer4","  if is_full report.js","   dom_push dialog pre_js","   dom_push dialog spacer5","  dom_push dialog div_continue","  dom_push body dialog","  dom_modal dialog"," assign global.html document.documentElement"," assign global.body document.body"," assign global.font \"1.5vw monospace\""," assign window.onerror value on_error","fn path_base x"," let a split x \"/\""," ret back a","fn tbl_dom x"," let r dom_table"," let tr dom_tr"," forof tbl_columns x","  let th dom_td","  dom_text th v","  dom_border th","  dom_push tr th"," dom_push r tr","  let tr dom_tr","  let row v","  forin row","   let v get row k","   let td dom_td","   dom_text td v","   dom_border td","   dom_push r td","  dom_push r tr","gn xhr_load x y","  let xhr new XMLHttpRequest","  ret run xhr_load x xhr"," var xhr y"," var result null"," fn on_load","  let s typeof xhr.response","  let response xhr.response","  if is_json response","   assign result json_decode response","   assign result response"," fn on_error","  let s to_lit \"error\"","  log \"xhr\" s","  assign result false"," assign xhr.onload on on_load"," assign xhr.onerror on on_error"," xhr.open \"get\" x"," xhr.send"," ret result","gn init x:etc"," fn slash","  let r dom_span","  dom_html r \"&nbsp/&nbsp;\""," assign document.title \"CV de Marc Abiven\""," var font_size \"1.4vw\""," if is_phone","  assign font_size \"3.4vw\""," let spacer1 dom_spacer"," let spacer2 dom_spacer"," let slash1 slash"," let slash2 slash"," dom_font_family body \"monospace\""," dom_font_size body font_size"," dom_margin body 0"," dom_padding body font_size"," let menu dom_div"," let a1 dom_a"," let a2 dom_a"," let a3 dom_a"," dom_center menu"," dom_href a1 \"marc-abiven-2025-07-28-developpeur-informatique.pdf\""," dom_text a1 \"Télécharger le PDF\""," dom_href a2 \"https://www.linkedin.com/in/marc-abiven/\""," dom_text a2 \"Linkedin\""," dom_href a3 \"https://discord.com/channels/1268201144300077213/1268201144300077216\""," dom_text a3 \"Discord\""," dom_push menu a1"," dom_push menu slash1"," dom_push menu a2"," dom_push menu slash2"," dom_push menu a3"," let div1 dom_div"," let div2 dom_div"," dom_center div1"," dom_center div2"," let iframe1 dom_iframe"," let iframe2 dom_iframe"," dom_src iframe1 \"/cv/developpeur.html\""," dom_width iframe1 \"210mm\""," dom_border iframe1"," dom_src iframe2 \"/cv/details.html\""," dom_width iframe2 \"210mm\""," dom_border iframe2","  dom_height iframe1 \"272mm\"","  dom_height iframe2 \"241mm\"","  dom_height iframe1 \"310mm\"","  dom_height iframe2 \"280mm\""," dom_push div1 iframe1"," dom_push div2 iframe2"," dom_push body menu"," dom_push body spacer1"," dom_push body div1"," dom_push body spacer2"," dom_push body div2"]
+const relatives=[0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12,12,13,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,17,17,17,17,17,18,18,18,18,18,19,19,19,19,19,20,20,20,20,20,20,20,20,20,20,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,22,22,22,23,23,23,23,23,23,23,23,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,34,34,34,34,34,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,37,37,37,37,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,39,39,39,39,39,39,39,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,42,42,42,42,42,42,42,42,42,42,42,43,43,43,43,43,43,43,43,43,43,43,43,43,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,48,48,48,48,48,49,49,49,49,49,49,49,50,50,50,50,50,50,51,51,51,51,51,51,52,52,52,52,52,52,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,54,54,54,54,54,55,55,55,55,55,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,57,57,57,57,57,57,57,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,61,61,61,61,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,63,63,63,63,63,63,63,63,63,63,64,64,64,64,64,64,64,64,65,65,65,65,65,65,65,65,65,65,65,65,66,66,66,66,66,66,67,67,67,67,67,67,68,68,68,68,68,68,68,68,69,69,69,69,69,69,69,69,70,70,70,70,71,71,71,71,71,71,71,71,71,71,71,71,71,72,72,72,72,72,72,72,72,72,72,72,72,72,72,73,73,73,73,74,74,74,74,74,74,74,74,74,74,74,74,74,74,75,75,75,75,75,75,75,75,75,75,76,76,76,76,76,76,77,77,77,77,77,77,77,77,77,77,77,77,77,77,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,80,80,80,80,81,81,81,81,81,81,81,81,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,84,84,84,84,84,84,84,84,84,84,84,84,84,84,84,84,85,85,85,85,85,85,85,85,85,85,86,86,86,86,86,86,86,86,86,86,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,87,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,88,89,89,89,89,89,89,90,90,90,90,90,90,90,90,90,90,90,90,90,91,91,91,91,91,91,92,92,92,92,92,92,92,92,92,92,93,93,93,93,94,94,94,94,94,94,94,94,95,95,95,95,95,95,95,95,96,96,96,96,97,97,97,97,97,97,97,97,97,97,97,97,97,97,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,99,99,99,99,99,99,99,99,99,99,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,102,102,102,103,103,103,103,103,103,103,103,103,103,103,103,104,104,104,104,104,104,104,104,105,105,105,105,105,105,105,105,106,106,106,106,106,106,106,106,106,106,107,107,107,107,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,108,109,109,109,109,109,109,110,110,110,110,110,110,111,111,111,111,112,112,112,112,112,112,112,112,112,112,112,112,112,113,113,113,113,113,113,113,113,113,113,114,114,114,114,114,114,114,114,115,115,115,115,115,115,115,115,115,115,115,115,115,115,116,116,116,116,116,116,116,116,117,117,117,117,117,118,118,118,118,118,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,119,120,120,120,120,120,120,121,121,121,121,121,121,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,122,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,124,125,125,125,125,125,125,125,125,125,125,125,125,125,125,125,125,126,126,126,126,126,126,126,126,126,126,126,126,126,126,126,126,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,128,128,128,128,129,129,129,129,129,129,130,130,130,130,131,131,131,131,131,131,131,131,131,131,131,131,131,131,132,132,132,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,133,134,134,134,134,134,135,135,135,135,135,135,135,135,135,136,136,136,136,136,137,137,137,137,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,138,139,139,139,139,139,139,139,139,139,139,139,139,139,139,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,140,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,141,142,142,142,142,142,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,144,144,144,144,144,144,144,144,144,144,144,144,144,144,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,145,146,146,146,146,146,146,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,147,148,148,148,148,148,148,148,148,148,148,148,148,148,148,149,149,149,149,149,149,150,150,150,150,150,150,150,150,150,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,154,154,154,154,154,154,155,155,155,155,155,155,155,155,155,155,155,155,155,155,155,155,155,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,156,157,157,157,157,157,158,158,158,158,158,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,159,160,160,160,160,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,162,162,162,162,162,162,162,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,165,166,166,166,166,166,166,167,167,167,167,167,167,167,167,167,167,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,168,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,170,170,170,170,171,171,171,171,171,171,171,171,171,172,172,172,172,173,173,173,173,173,173,173,173,173,173,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,175,175,175,175,175,175,175,175,175,175,175,175,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,177,177,177,177,177,177,177,177,177,177,177,177,177,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,181,181,181,181,181,181,181,181,181,182,182,182,182,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,183,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,184,185,185,185,185,185,185,185,185,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,186,187,187,187,187,187,187,187,187,187,187,187,187,187,187,187,187,187,187,188,188,188,188,188,188,188,188,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,190,190,190,190,190,190,190,190,190,190,190,190,190,190,190,190,190,190,191,191,191,191,191,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,192,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,193,194,194,194,194,194,195,195,195,195,195,195,195,195,195,195,195,195,196,196,196,196,196,197,197,197,197,197,198,198,198,198,198,199,199,199,199,199,199,199,199,199,199,199,199,200,200,200,200,200,201,201,201,201,201,201,201,201,201,201,201,201,202,202,202,202,202,203,203,203,203,203,204,204,204,204,204,205,205,205,205,205,206,206,206,206,206,207,207,207,207,207,207,207,207,207,207,207,207,207,207,207,207,207,207,207,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,210,210,210,210,210,210,211,211,211,211,211,211,211,211,211,211,211,212,212,212,212,212,212,212,212,212,212,212,212,212,212,213,213,213,213,214,214,214,214,214,214,215,215,215,215,215,215,215,215,216,216,216,216,217,217,217,217,217,218,218,218,218,218,218,219,219,219,219,219,219,219,219,219,219,219,220,220,220,220,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,221,222,222,222,222,222,222,223,223,223,223,223,223,224,224,224,224,224,224,225,225,225,225,225,225,226,226,226,226,226,226,227,227,227,227,228,228,228,228,228,228,229,229,229,229,230,230,230,230,230,231,231,231,231,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,232,233,233,233,233,233,233,234,234,234,234,234,235,235,235,235,235,235,236,236,236,236,236,236,236,236,236,236,236,237,237,237,237,237,237,238,238,238,238,238,238,238,238,238,238,238,239,239,239,239,240,240,240,240,240,240,241,241,241,241,241,241,241,241,241,241,241,242,242,242,242,243,243,243,243,243,243,244,244,244,244,245,245,245,245,246,246,246,246,246,246,247,247,247,247,247,247,247,247,248,248,248,248,249,249,249,249,249,249,249,249,250,250,250,250,250,250,250,250,250,250,250,250,250,250,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,252,252,252,252,252,252,252,252,252,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255]
+const indices=[0,0,1,3,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,1,3,0,0,0,1,2,4,5,0,0,0,1,0,0,0,1,3,0,0,0,1,2,4,4,4,4,6,8,9,11,4,4,0,0,0,1,3,4,6,8,8,8,8,9,9,9,9,11,12,14,9,9,8,8,0,0,0,1,3,3,3,3,4,4,4,4,6,6,7,7,7,7,9,11,11,11,11,12,12,12,12,13,13,13,13,15,16,18,18,18,18,20,18,18,13,13,12,12,11,11,7,7,6,23,4,4,3,3,0,0,0,1,3,3,3,3,5,5,6,6,6,6,7,7,7,7,8,8,8,8,10,8,8,7,7,6,6,5,13,3,3,0,0,0,1,2,3,4,6,7,9,10,12,0,0,0,1,3,0,0,0,1,3,0,0,0,1,2,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,9,9,10,10,10,12,10,9,15,15,16,16,16,16,17,17,17,17,18,18,18,20,18,17,17,16,16,15,23,23,24,24,24,24,25,25,25,25,26,26,26,28,26,25,25,24,24,23,31,31,32,32,32,32,33,33,33,33,34,34,34,36,34,33,33,32,32,31,39,39,39,39,40,40,40,40,41,41,41,43,41,40,40,39,39,7,7,6,6,5,5,4,4,0,0,0,1,2,4,6,8,8,8,8,9,9,9,9,11,13,9,9,8,8,0,0,0,1,1,2,3,1,4,4,5,5,5,5,7,8,5,5,4,11,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,2,4,5,7,8,10,0,0,0,1,3,3,4,5,7,8,10,11,13,3,16,16,16,16,18,18,19,19,20,22,19,25,25,25,25,26,26,26,26,27,27,27,27,29,29,29,30,30,30,31,31,32,34,31,37,37,37,37,39,40,37,37,27,27,26,26,25,25,18,43,16,16,0,0,0,1,0,0,0,1,3,4,6,8,0,0,0,1,3,3,3,3,4,4,4,4,6,6,7,7,7,7,8,8,8,8,10,10,11,11,11,11,12,12,12,12,13,13,13,13,15,13,13,12,12,11,11,10,8,8,7,7,6,19,4,4,3,3,0,0,0,1,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,8,6,5,5,4,4,3,3,0,0,0,1,1,2,2,2,4,2,1,7,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,16,16,16,18,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,0,0,0,1,1,2,2,2,4,2,1,7,9,9,10,12,12,12,12,14,14,15,16,18,18,18,18,20,21,23,18,18,14,26,12,12,9,29,29,29,29,30,30,30,30,31,31,31,31,32,32,32,32,34,34,35,35,35,35,36,36,36,36,38,38,39,39,39,39,41,42,39,39,38,45,45,45,45,46,46,46,46,47,47,47,47,48,48,48,48,50,51,53,53,53,53,55,55,56,55,58,59,61,61,61,61,62,62,62,62,63,63,63,63,65,66,68,68,68,68,70,70,70,70,72,73,75,75,75,75,76,76,76,76,77,77,77,77,78,78,78,78,79,79,79,79,80,80,80,80,81,81,81,83,81,80,80,79,79,78,78,77,77,76,76,75,75,70,70,68,68,63,63,62,62,61,61,53,53,48,48,47,47,46,46,45,45,36,36,35,35,34,86,32,32,31,31,30,30,29,29,0,0,0,1,1,2,2,2,4,2,1,7,9,9,9,9,11,11,12,12,12,12,13,13,13,13,15,15,15,16,16,16,17,17,17,18,19,21,13,13,12,12,11,24,9,9,0,0,0,1,1,2,2,2,4,2,1,7,8,10,10,10,10,11,11,11,11,12,12,12,12,14,14,15,15,15,15,16,16,16,16,18,18,18,18,19,19,19,19,21,21,22,22,22,22,23,23,23,23,25,26,23,23,22,22,21,27,27,28,28,28,28,30,31,28,28,27,32,33,35,35,35,35,36,36,36,36,37,37,37,37,38,38,38,38,39,39,39,39,41,42,39,39,38,38,37,37,36,36,35,35,19,19,18,18,16,16,15,15,14,12,12,11,11,10,10,0,0,0,1,2,4,5,7,9,10,12,14,14,15,16,17,18,20,20,20,20,21,21,21,21,23,23,23,23,24,24,24,24,25,25,25,25,27,27,27,27,29,29,29,29,31,31,32,31,33,33,34,35,37,37,38,37,33,41,41,42,42,42,42,43,43,43,43,45,45,46,45,48,48,48,48,49,49,49,49,51,52,53,53,54,56,53,59,59,59,61,59,49,49,48,48,43,43,42,42,41,64,64,64,64,66,67,70,70,70,70,72,72,72,72,73,73,73,73,75,75,76,76,76,76,77,77,77,77,78,78,78,78,80,78,78,77,77,76,76,75,83,83,84,85,87,83,90,73,73,72,72,70,70,64,64,29,29,27,27,25,25,24,24,23,23,21,21,20,20,14,93,93,93,93,95,96,98,98,98,98,100,100,101,103,104,106,100,109,98,98,93,93,0,0,0,1,3,3,4,5,7,9,10,3,14,14,15,17,17,17,17,19,20,22,22,22,22,23,23,23,23,25,25,26,27,25,23,23,22,22,17,17,14,31,31,31,31,32,32,32,32,33,33,33,33,34,34,34,34,35,35,35,35,36,36,36,36,38,40,41,43,44,45,47,36,36,35,35,34,34,33,33,32,32,31,31,0,0,0,1,1,1,1,2,2,2,2,4,4,4,4,6,6,7,7,7,9,7,6,12,12,12,12,14,14,15,15,15,15,16,16,16,16,17,17,17,17,18,18,18,18,20,20,21,21,21,23,21,20,26,18,18,17,17,16,16,15,15,14,29,29,29,29,31,31,31,32,32,33,34,32,38,38,39,39,39,39,40,40,40,40,42,43,45,45,45,45,46,46,46,46,47,47,47,47,49,49,49,50,50,51,50,53,53,53,53,54,54,54,54,55,55,55,55,56,56,56,58,56,55,55,54,54,53,53,47,47,46,46,45,45,40,40,39,39,38,61,29,29,12,12,4,4,2,2,1,1,0,0,0,1,1,2,2,3,3,3,3,4,4,4,6,4,3,3,2,7,8,9,10,1,13,13,13,13,15,15,16,15,17,17,18,17,20,20,20,20,21,21,21,21,23,23,24,24,24,24,26,27,24,24,23,30,30,30,32,30,21,21,20,20,13,13,0,0,0,1,3,0,0,0,1,3,3,3,3,5,5,6,7,5,11,3,3,0,0,0,1,3,4,6,8,8,8,8,10,10,11,11,11,11,13,13,14,16,13,19,19,19,19,20,20,20,20,22,22,23,24,22,25,26,20,20,19,19,11,11,10,29,8,8,0,0,0,1,0,0,0,1,2,3,5,5,5,5,7,8,10,5,5,0,0,0,1,3,4,6,0,0,0,1,3,3,4,4,5,5,5,5,7,8,10,10,10,12,10,5,5,4,15,3,18,18,18,18,20,20,21,21,22,22,22,22,23,23,23,23,24,24,24,24,25,25,25,25,26,26,26,26,27,27,27,27,28,28,28,30,28,27,27,26,26,25,25,24,24,23,23,22,22,21,31,31,32,32,32,34,32,31,20,36,36,37,37,37,39,37,36,40,41,18,18,0,0,0,1,3,4,5,5,6,6,6,6,8,10,6,6,5,11,12,0,0,0,1,2,4,4,5,6,4,9,0,0,0,1,3,3,3,3,5,6,9,3,3,0,0,0,1,2,4,4,4,4,5,5,5,5,7,9,9,10,10,11,10,12,13,9,16,5,5,4,4,0,0,0,1,2,4,4,4,4,6,6,7,6,10,4,4,0,0,0,1,1,1,1,3,3,4,4,4,4,6,8,4,4,3,11,13,13,13,13,14,14,14,14,15,15,15,15,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,21,19,18,18,17,17,16,16,15,15,14,14,13,13,1,1,0,0,0,1,3,3,3,3,5,5,6,7,9,9,9,11,9,5,14,3,3,0,0,0,1,3,0,0,0,1,2,3,5,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,4,5,6,7,8,9,10,4,13,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,4,6,6,6,6,8,8,9,9,9,9,11,12,13,13,14,14,14,14,15,15,15,17,15,14,14,13,9,9,8,21,6,6,0,0,0,1,2,3,5,0,0,0,1,2,4,5,7,7,7,7,9,10,12,7,7,0,0,0,1,2,4,5,7,7,8,8,8,9,9,9,10,10,10,11,12,7,15,0,0,0,1,2,4,5,7,7,8,8,8,9,9,9,10,11,7,14,0,0,0,1,0,0,0,1,2,4,5,7,8,10,11,13,14,16,17,19,0,0,0,1,2,4,5,7,8,10,0,0,0,1,1,1,3,1,0,0,0,1,1,2,1,3,3,4,3,7,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,5,7,0,0,0,1,2,4,5,7,0,0,0,1,0,0,0,1,2,4,5,7,7,8,9,7,12,0,0,0,1,2,4,4,5,5,5,7,5,4,10,0,0,0,1,0,0,0,1,1,1,1,3,4,6,7,9,1,1,0,0,0,1,2,4,5,7,8,10,0,0,0,1,2,4,0,0,0,1,1,1,1,3,4,6,7,9,1,1,0,0,0,1,2,4,5,7,7,7,7,9,9,9,10,10,10,11,12,14,14,15,16,14,19,7,7,0,0,0,1,2,4,5,7,7,8,9,11,11,11,11,13,14,11,11,7,17,0,0,0,1,0,0,0,1,2,4,5,7,0,0,0,1,2,4,4,4,4,6,7,9,9,10,11,13,13,13,13,15,16,13,13,9,19,4,4,0,0,0,1,2,4,4,4,4,6,7,9,10,12,12,13,14,16,17,19,20,22,23,12,26,4,4,0,0,0,1,2,4,5,7,7,8,7,9,9,10,9,13,0,0,0,1,2,4,4,4,6,4,0,0,0,1,2,4,4,4,6,4,0,0,0,1,2,4,5,7,8,10,10,10,10,11,11,11,11,13,14,16,16,16,18,16,11,11,10,10,0,0,0,1,2,4,5,7,7,7,7,9,10,12,12,12,14,12,7,7,0,0,0,1,2,4,0,0,0,1,2,4,5,7,7,8,9,7,12,0,0,0,1,2,4,0,0,0,1,2,4,5,7,8,10,0,0,0,1,0,0,0,1,2,4,5,7,0,0,0,1,2,4,5,7,0,0,0,1,0,0,0,1,2,4,5,7,8,10,10,10,12,10,0,0,0,1,2,4,5,7,7,7,7,9,10,12,12,12,14,12,7,7,0,0,0,1,2,4,4,4,6,4,0,0,0,1,2,4,0,0,0,1,2,4,5,7,7,8,9,7,12,0,0,0,1,2,4,0,0,0,1,2,4,5,7,7,7,9,7,0,0,0,1,1,1,3,1,0,0,0,1,2,4,5,7,0,0,0,1,2,4,5,7,8,10,0,0,0,1,0,0,0,1,2,4,5,7,7,7,7,9,10,12,12,13,14,16,12,19,7,7,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,0,0,0,1,2,4,5,7,7,8,9,7,12,0,0,0,1,2,4,5,7,8,10,0,0,0,1,2,4,5,7,0,0,0,1,2,4,5,7,8,10,11,13,14,16,0,0,0,1,3,4,6,8,0,0,0,1,3,0,0,0,1,3,0,0,0,1,1,2,3,1,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,11,9,9,8,8,7,7,6,6,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,1,2,3,5,1,8,8,9,9,9,9,10,10,10,10,11,11,11,13,11,10,10,9,9,8,16,16,17,19,19,19,19,20,20,20,22,20,19,19,16,23,23,23,24,25,27,27,28,29,27,30,30,31,31,31,31,33,33,34,34,34,34,36,36,37,38,36,41,34,34,33,44,31,31,30,0,0,0,1,1,2,2,2,2,4,4,5,5,5,5,7,5,5,4,8,8,9,8,10,11,13,13,14,13,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,22,22,23,23,23,23,25,26,28,29,31,31,31,31,33,33,34,33,35,35,35,38,39,41,31,31,23,23,22,44,20,20,19,19,18,18,17,17,2,2,1,47,47,48,47,50,51,52,53,54,55,56,57,58,60,61,62,63,64,65,67,69,69,70,70,71,71,71,73,71,70,69,77,77,77,77,78,78,78,78,79,79,79,79,81,81,81,81,82,82,82,82,83,83,83,83,84,84,84,84,86,88,88,89,89,89,89,91,91,92,91,94,89,89,88,95,95,96,96,97,97,98,100,97,96,104,95,105,106,84,84,83,83,82,82,81,81,79,79,78,78,77,77,0,0,0,1,2,4,4,4,4,6,6,7,7,7,7,9,11,7,7,6,14,4,4,0,0,0,1,2,4,5,7,8,10,11,13,13,13,15,13,0,0,0,1,2,4,5,7,8,10,11,13,13,13,15,13,0,0,0,1,2,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,9,7,6,6,5,5,4,4,0,0,0,1,0,0,0,1,2,4,0,0,0,1,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,0,0,0,1,2,4,4,4,4,6,6,7,8,10,10,10,12,10,6,15,4,4,0,0,0,1,3,0,0,0,1,3,3,3,5,3,0,0,0,1,3,0,0,0,1,0,0,0,1,3,3,3,3,5,5,6,7,9,9,10,9,11,11,12,14,11,5,18,19,21,3,3,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,1,3,3,4,4,4,4,6,6,7,8,10,6,13,4,4,3,16,17,18,20,0,0,0,1,3,3,4,4,4,4,6,6,7,8,10,6,13,4,4,3,16,17,18,20,0,0,0,1,3,0,0,0,1,3,3,3,3,4,4,4,4,6,6,7,6,10,4,4,3,3,0,0,0,1,1,1,1,2,2,2,4,2,1,1,0,0,0,1,3,3,3,3,4,4,4,4,6,7,9,11,4,4,3,3,0,0,0,1,2,4,0,0,0,1,3,4,6,8,8,8,8,10,10,11,11,11,11,13,15,11,11,10,18,8,8,0,0,0,1,2,4,4,4,4,6,8,9,4,4,0,0,0,1,2,4,0,0,0,1,2,3,5,6,8,0,0,0,1,2,4,5,7,7,7,7,8,8,8,8,10,11,13,8,8,7,7,0,0,0,1,2,4,4,4,4,6,6,7,8,10,6,13,4,4,0,0,0,1,2,4,5,7,8,10,10,10,10,12,14,10,10,0,0,0,1,2,4,0,0,0,1,2,3,5,5,5,5,7,7,8,7,11,5,5,0,0,0,1,2,3,5,5,6,6,6,8,6,5,9,9,10,10,10,10,12,12,13,14,15,16,12,19,10,10,9,20,21,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,4,6,6,6,6,7,7,7,7,8,8,8,8,10,10,11,11,12,12,12,14,12,11,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,22,22,22,22,24,22,22,21,21,20,20,19,19,18,18,17,17,10,27,8,8,7,7,6,6,0,0,0,1,0,0,0,1,3,4,6,8,9,11,13,13,14,15,17,17,17,17,18,18,18,18,20,20,21,21,21,21,23,23,24,24,24,24,26,27,24,24,23,28,28,29,29,29,31,29,28,21,21,20,35,18,18,17,17,13,38,38,39,40,41,43,43,43,43,45,45,46,46,46,46,48,49,51,46,46,45,54,43,43,38,57,57,57,59,57,0,0,0,1,2,3,5,0,0,0,1,3,4,6,8,8,9,9,9,9,11,13,9,9,8,16,0,0,0,1,3,3,3,3,4,4,4,4,6,6,7,7,7,7,8,8,8,8,10,11,8,8,7,7,6,14,4,4,3,3,0,0,0,1,2,4,4,4,4,6,6,7,7,7,7,8,8,8,8,10,11,13,8,8,7,7,6,4,4,0,0,0,1,2,4,0,0,0,1,2,4,4,4,6,4,0,0,0,1,3,3,3,3,5,7,7,8,8,8,10,8,7,13,15,15,15,15,17,19,15,15,3,3,0,0,0,1,3,3,4,5,6,7,3,8,8,9,9,10,11,13,13,13,13,15,15,16,16,16,18,16,15,21,13,13,9,24,25,27,27,27,27,28,28,28,28,30,30,31,31,31,31,32,32,32,32,33,33,33,35,33,32,32,31,31,30,38,40,40,41,41,41,43,41,40,46,28,28,27,27,8,0,0,0,1,0,0,0,1,3,4,6,7,9,0,0,0,1,0,0,0,1,3,4,6,6,6,8,6,0,0,0,1,3,3,3,3,5,5,6,6,6,6,8,8,9,9,10,12,9,15,15,15,17,15,8,20,6,6,5,23,3,3,0,0,0,1,2,4,4,5,5,5,7,5,4,10,0,0,0,1,2,4,4,5,5,5,7,5,4,10,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,1,2,4,4,5,6,7,8,9,10,4,13,0,0,0,1,1,2,2,2,2,4,4,5,5,5,5,7,7,8,9,12,7,5,5,4,2,2,1,17,17,18,19,17,22,24,25,0,0,0,1,2,4,4,4,4,6,6,7,7,7,9,7,6,12,4,4,0,0,0,1,3,3,3,5,3,0,0,0,1,0,0,0,1,2,4,4,4,4,6,8,8,9,9,9,11,9,8,4,4,0,0,0,1,3,3,4,6,6,6,6,8,8,9,9,9,9,11,11,12,12,12,12,14,15,17,17,17,19,17,12,12,11,22,9,9,8,25,6,6,3,28,28,29,31,31,31,31,32,32,32,32,34,34,35,35,36,36,36,38,36,35,39,40,41,42,34,45,45,45,45,47,47,48,47,51,51,52,52,53,53,53,53,55,56,53,53,52,57,57,58,58,58,60,58,57,61,62,51,65,45,45,32,32,31,31,28,68,68,68,68,69,69,69,69,70,70,70,70,72,72,73,73,73,73,74,74,74,74,76,78,78,78,80,78,74,74,73,73,72,83,83,83,83,85,85,86,86,86,86,88,86,86,85,91,91,91,91,92,92,92,92,94,96,96,96,96,98,98,99,99,99,101,99,98,104,104,104,104,106,107,109,109,109,109,111,111,112,112,112,112,113,113,113,113,115,115,116,116,116,118,116,115,121,121,121,123,121,113,113,112,112,111,126,128,109,109,104,104,96,96,92,92,91,91,83,83,70,70,69,69,68,68,0,0,0,1,1,1,3,1,0,0,0,1,3,4,6,8,8,9,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,17,17,18,18,18,20,18,17,23,23,24,24,24,26,24,23,29,29,30,30,30,30,31,31,31,33,31,30,30,29,36,36,37,37,37,37,38,38,38,40,38,37,37,36,43,43,44,44,44,44,45,45,45,47,45,44,44,43,50,50,51,51,51,51,52,52,52,54,52,51,51,50,57,57,57,57,58,58,58,60,58,57,57,15,15,14,14,13,13,12,12,11,11,8,63,63,63,63,65,66,68,68,69,69,69,69,70,70,70,70,72,73,75,70,70,69,69,68,78,78,78,78,79,79,79,79,81,82,84,79,79,78,78,63,63,0,0,0,1,3,4,6,8,8,8,8,9,9,9,11,9,8,8,0,0,0,1,1,1,3,1,0,0,0,1,1,2,2,2,4,2,1,7,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,16,14,13,13,12,12,11,11,10,10,9,9,0,0,0,1,3,4,6,8,8,8,8,9,9,9,11,9,8,8,0,0,0,1,3,0,0,0,1,3,3,4,5,7,7,7,7,9,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,17,17,18,18,18,20,18,17,21,21,22,22,22,22,23,23,23,23,25,26,23,23,22,22,21,15,15,14,14,13,13,12,12,11,30,32,7,7,3,33,33,34,35,37,37,37,37,39,41,41,42,42,42,42,43,43,43,43,44,44,44,44,46,46,47,46,49,49,50,50,50,52,50,49,53,53,54,54,54,54,55,55,55,55,57,58,59,55,55,54,54,53,44,44,43,43,42,42,41,63,65,37,37,33,66,67,68,69,70,71,0,0,0,1,3,4,6,8,8,8,8,9,9,9,9,11,12,14,14,14,14,15,15,15,15,16,16,16,16,18,18,19,19,19,19,21,22,24,19,19,18,27,28,30,32,16,16,15,15,14,14,9,9,8,8,0,0,0,1,3,0,0,0,1,3,3,3,3,5,7,3,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,3,3,3,5,7,3,3,0,0,0,1,3,0,0,0,1,3,3,3,3,5,7,3,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,0,1,1,2,2,2,2,4,5,7,2,2,1,8,9,10,11,0,0,0,1,1,2,2,2,2,3,3,3,5,3,2,2,1,8,9,11,11,11,11,13,13,14,14,14,16,14,13,19,11,11,0,0,0,1,1,2,2,2,2,3,3,3,5,3,2,2,1,8,9,11,11,11,11,13,13,14,14,14,16,14,13,19,11,11,0,0,0,1,2,4,0,0,0,1,3,4,6,7,9,10,12,0,0,0,1,2,4,4,4,4,6,7,9,4,4,0,0,0,1,0,0,0,1,2,4,0,0,0,1,3,4,6,8,0,0,0,1,0,0,0,1,3,0,0,0,1,2,4,0,0,0,1,1,1,1,3,5,1,1,0,0,0,1,0,0,0,1,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,10,8,7,7,6,6,5,5,4,4,3,3,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,2,4,0,0,0,1,0,0,0,1,2,4,0,0,0,1,0,0,0,1,3,0,0,0,1,0,0,0,1,3,3,3,3,5,5,6,8,5,11,13,13,14,15,17,13,3,3,0,0,0,1,2,4,0,0,0,1,3,0,0,0,1,2,4,0,0,0,1,1,1,1,3,5,1,1,0,0,0,1,2,4,0,0,0,1,1,1,1,3,5,1,1,0,0,0,1,0,0,0,1,2,4,0,0,0,1,1,1,1,3,5,1,1,0,0,0,1,0,0,0,1,2,4,0,0,0,1,0,0,0,1,0,0,0,1,2,4,0,0,0,1,1,1,3,1,0,0,0,1,0,0,0,1,1,1,3,1,0,0,0,1,1,1,1,3,4,6,7,9,1,1,0,0,0,1,1,2,3,4,5,6,8,10,10,10,10,11,11,11,11,13,14,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,21,23,23,23,23,24,24,24,24,25,25,25,25,26,26,26,26,28,29,30,31,33,33,33,33,35,37,37,37,37,38,38,38,38,39,39,39,39,40,40,40,40,41,41,41,41,43,45,45,46,47,45,50,50,51,52,53,50,56,56,57,58,56,61,61,62,63,61,66,67,69,71,41,41,40,40,39,39,38,38,37,37,33,33,26,26,25,25,24,24,23,23,19,19,18,18,17,17,16,16,11,11,10,10,1,74,75,76,78,0,0,0,1,3,3,3,5,3,0,0,0,1,3,3,3,3,4,4,4,4,6,6,7,7,7,7,9,10,11,7,7,6,14,16,16,17,17,17,17,18,18,18,18,20,20,21,21,21,21,22,22,22,22,24,25,26,22,22,21,21,20,29,18,18,17,17,16,32,4,4,3,3,0,0,0,1,3,3,4,4,4,6,4,3,9,11,11,11,11,12,12,12,12,13,13,13,13,15,15,16,16,16,16,17,17,17,17,19,19,20,19,21,21,22,21,24,17,17,16,16,15,27,27,28,28,28,28,30,32,33,28,28,27,36,37,39,40,42,42,43,44,46,42,49,13,13,12,12,11,11,0,0,0,1,1,2,2,2,2,4,6,2,2,1,9,11,11,11,11,13,13,14,13,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,21,22,23,24,26,26,26,26,27,27,27,27,28,28,28,28,29,29,29,29,31,33,34,36,37,39,40,42,43,44,45,46,48,48,48,48,49,49,49,49,51,52,54,54,54,54,55,55,55,55,57,58,59,61,62,63,65,65,66,67,65,68,68,69,70,68,73,74,76,77,78,79,80,55,55,54,54,49,49,48,48,29,29,28,28,27,27,26,26,19,19,18,18,17,17,16,16,11,11,0]
+const contents={"0":[256,257,258,259,260],"1":[261,257,262,258,263,258,264,265,258,266,260],"2":[267,268,269,258,270,258,264,271,258,266,260],"3":[272,273,258,274,260],"4":[275,276,277,258,278,279,280,260],"5":[281,282,260],"6":[283,284,258,285,260],"7":[286,287,288,258,289,258,290,258,291,292,258,293,260],"8":[294,287,258,295,296,258,288,258,297,298,258,291,299,258,300,260],"9":[301,273,258,302,303,258,304,305,258,306,258,307,308,309,258,310,311,258,312,258,313,280,258,266,260],"10":[314,273,258,302,258,315,316,317,318,258,319,280,258,266,260],"11":[320,257,262,321,322,258,323,324,258,325,324,258,326,260],"12":[327,273,258,328,260],"13":[329,273,258,330,260],"14":[331,332,333,258,334,335,336,337,258,338,339,258,340,280,258,341,342,343,344,258,345,280,258,346,347,343,344,258,348,280,258,349,350,343,344,258,351,280,258,352,353,354,258,355,260],"15":[356,357,358,258,359,258,360,258,361,362,258,363,258,266,260],"16":[364,365,366,367,368,369,258,370,367,280,258,371,260],"17":[372,332,258,373,260],"18":[374,276,258,375,260],"19":[376,377,258,378,260],"20":[379,377,380,258,381,382,258,383,384,258,385,260],"21":[386,276,258,387,388,389,258,390,391,258,392,391,258,324,280,258,393,258,315,394,395,258,396,397,258,398,399,400,258,401,402,403,404,258,396,397,258,405,258,406,407,280,258,408,260],"22":[409,410,260],"23":[411,287,258,412,413,258,380,258,414,260],"24":[415,273,258,416,303,258,417,418,419,258,420,421,422,423,258,424,397,280,258,266,260],"25":[425,273,258,426,427,428,429,258,266,260],"26":[430,431,432,258,433,280,258,257,258,434,435,436,437,438,439,440,441,258,442,260],"27":[443,431,444,258,445,280,258,273,258,446,447,258,448,258,449,450,451,258,452,258,453,451,258,454,397,258,455,280,258,456,457,458,459,258,460,418,461,258,462,463,258,464,451,397,258,465,466,467,468,258,469,470,258,471,258,472,473,258,474,396,258,475,476,477,258,478,396,258,479,258,480,258,481,396,258,482,483,484,485,486,487,488,258,489,280,258,266,260],"28":[490,431,491,258,492,280,258,273,258,493,258,494,495,496,258,497,498,499,403,500,258,501,280,258,266,260],"29":[502,431,503,258,504,280,258,273,505,258,459,506,507,258,508,418,509,258,510,511,258,512,513,514,258,515,516,517,518,258,519,520,403,521,258,522,523,524,525,526,258,527,528,280,260],"30":[529,530,531,258,532,533,258,534,258,535,536,258,537,258,538,539,540,541,542,258,448,543,258,544,545,546,258,547,258,548,258,549,550,551,552,553,258,554,555,397,258,556,557,558,258,559,560,258,561,562,258,563,564,565,566,258,564,567,258,568,258,569,397,258,570,258,571,572,397,258,573,258,574,575,258,576,421,577,578,258,579,397,258,571,580,451,258,581,397,258,455,280,258,582,258,583,455,258,584,258,585,586,258,587,500,258,588,280,258,266,260],"31":[589,590,258,591,592,367,258,593,258,594,595,397,280,258,596,597,258,598,258,599,600,258,601,602,258,603,604,605,397,280,258,606,607,608,609,610,611,258,612,258,613,614,258,615,616,617,258,618,260],"32":[619,620,621,258,622,258,623,624,258,625,280,258,626,258,627,628,629,630,631,258,632,633,258,634,397,258,635,280,258,636,258,637,638,639,640,397,280,258,641,418,642,258,643,396,258,644,645,646,258,462,647,648,258,649,650,651,652,258,653,280,258,654,260],"33":[655,656,462,657,658,258,659,647,660,403,521,280,258,302,258,431,661,662,663,258,362,664,258,665,666,258,667,500,280,258,668,258,266,260],"34":[669,257,258,670,260],"35":[671,276,258,456,258,315,672,581,397,280,258,266,260],"36":[673,273,258,295,674,258,675,258,456,258,315,676,258,677,678,258,396,397,258,679,680,258,681,682,683,403,678,280,258,266,260],"37":[684,685,260],"38":[686,257,262,687,258,688,258,264,689,258,266,260],"39":[690,276,258,295,691,258,692,260],"40":[693,377,258,694,695,696,258,697,451,258,698,258,699,397,258,700,280,258,701,258,637,702,703,704,705,706,707,708,709,258,710,403,711,258,710,397,638,712,258,713,662,700,260],"41":[714,715,258,716,717,718,719,258,720,258,455,662,700,260],"42":[721,276,675,258,315,722,389,280,258,326,260],"43":[723,273,258,456,258,315,724,280,258,266,260],"44":[725,276,380,258,726,727,258,728,258,729,730,731,403,732,280,258,266,260],"45":[733,276,380,258,734,258,735,736,280,258,737,260],"46":[738,739,258,431,740,258,528,258,741,280,258,273,258,742,743,744,745,744,746,747,258,748,260],"47":[749,273,258,750,258,751,752,396,258,753,258,754,280,258,266,260],"48":[755,287,258,756,260],"49":[757,590,505,758,258,759,260],"50":[760,257,262,258,761,260],"51":[762,257,262,258,763,260],"52":[764,590,505,258,765,260],"53":[766,287,288,258,767,768,769,770,771,403,521,280,258,772,260],"54":[773,276,258,774,260],"55":[775,257,258,776,260],"56":[777,273,258,295,778,258,393,258,779,780,258,781,782,403,783,784,258,782,397,280,258,785,260],"57":[786,276,288,787,258,788,260],"58":[789,790,324,258,791,324,258,792,258,793,324,258,794,260],"59":[795,790,324,258,791,324,258,315,796,797,798,403,389,280,258,326,260],"60":[799,790,324,258,791,324,258,315,800,801,403,389,280,258,326,260],"61":[802,803,260],"62":[804,805,806,258,807,806,258,808,806,258,809,806,258,810,806,258,811,806,258,812,260],"63":[813,790,324,258,791,806,258,814,806,258,812,260],"64":[815,816,258,817,260],"65":[818,819,820,821,324,280,258,326,260],"66":[822,790,324,258,823,260],"67":[824,825,324,258,826,260],"68":[827,716,806,258,828,806,258,812,260],"69":[829,830,806,258,412,806,258,812,260],"70":[831,832,260],"71":[833,790,324,258,791,324,258,315,834,389,280,258,326,260],"72":[835,836,837,258,838,839,258,840,280,258,812,260],"73":[841,842,260],"74":[843,816,258,844,324,258,845,324,258,326,260],"75":[846,790,806,258,805,806,258,814,806,258,812,260],"76":[847,836,848,258,812,260],"77":[849,816,258,844,324,258,850,324,258,326,260],"78":[851,790,324,258,791,324,258,852,258,853,854,662,324,258,315,855,389,280,258,326,260],"79":[856,790,324,258,791,324,258,779,857,396,258,858,258,859,389,280,258,326,260],"80":[860,861,260],"81":[862,863,806,258,864,806,258,812,260],"82":[865,790,324,258,792,258,866,324,258,729,867,389,258,868,258,869,389,280,258,326,260],"83":[870,790,324,258,871,258,872,324,258,873,324,258,729,857,396,258,855,389,258,874,389,258,875,389,280,258,326,260],"84":[876,790,324,258,791,324,258,819,877,821,324,280,258,326,260],"85":[878,276,288,258,289,258,879,260],"86":[880,790,324,258,881,258,882,260],"87":[883,790,324,258,884,324,258,885,324,258,886,887,258,888,324,258,889,258,890,260],"88":[891,790,324,258,892,324,258,893,258,894,324,258,895,258,896,260],"89":[897,412,898,258,812,260],"90":[899,790,324,258,791,324,258,315,900,389,280,258,326,260],"91":[901,836,902,258,812,260],"92":[903,904,806,258,807,806,258,808,806,258,812,260],"93":[905,906,260],"94":[907,431,806,258,908,806,258,812,260],"95":[909,904,806,258,807,806,258,812,260],"96":[910,911,260],"97":[912,913,324,258,914,324,258,915,324,258,816,258,916,260],"98":[917,790,324,258,892,324,258,893,258,918,324,258,895,258,896,260],"99":[919,908,324,258,816,258,920,260],"100":[921,922,324,258,923,260],"101":[924,790,324,258,791,324,258,315,925,389,280,258,326,260],"102":[926,836,927,258,812,260],"103":[928,790,324,258,791,324,258,929,258,930,260],"104":[931,816,258,932,260],"105":[933,934,806,258,935,806,258,812,260],"106":[936,790,324,258,814,806,258,935,806,258,812,260],"107":[937,938,260],"108":[939,790,324,258,791,324,258,871,258,793,324,258,729,940,396,258,324,280,258,326,260],"109":[941,412,942,258,812,260],"110":[943,944,945,258,812,260],"111":[946,947,260],"112":[948,790,324,258,791,324,258,315,949,389,280,258,326,260],"113":[950,825,324,258,951,806,258,952,806,258,812,260],"114":[953,412,806,258,716,806,258,812,260],"115":[954,790,324,258,791,324,258,955,324,258,956,324,258,957,324,258,326,260],"116":[958,276,258,295,959,258,505,258,960,260],"117":[961,273,258,962,260],"118":[963,377,258,964,260],"119":[965,966,967,741,280,258,968,969,970,971,258,972,260],"120":[973,257,262,258,974,260],"121":[975,257,262,258,976,260],"122":[977,978,462,979,258,980,280,258,981,982,983,984,258,985,280,258,637,986,258,987,988,258,989,638,662,700,258,990,991,992,993,994,258,995,996,258,997,998,999,567,258,1000,397,258,1001,280,260],"123":[1002,1003,1004,258,462,463,258,1005,647,1006,403,521,258,1007,1008,397,258,1009,1010,1011,1012,258,1013,1014,258,1015,451,258,1016,451,258,1017,258,1018,1019,1020,567,258,1021,451,258,1022,397,258,1023,280,258,1024,1025,258,1026,1027,1028,1029,1030,1031,363,1032,1033,258,637,1034,638,1035,662,700,258,1036,258,751,1037,1038,258,1039,397,280,258,1040,1041,1042,258,1043,1044,1045,1046,258,1047,258,637,1048,258,1049,1050,258,1051,638,1052,1053,1054,258,1055,567,397,258,1056,662,700,260],"124":[1057,276,675,258,456,258,315,1058,258,1059,258,724,280,258,266,260],"125":[1060,273,505,258,791,324,258,1061,324,258,1062,324,258,1063,258,1064,260],"126":[1065,273,505,258,791,324,258,1061,324,258,1062,324,258,1066,258,1064,260],"127":[1067,273,505,258,1068,1069,1070,1071,258,1072,260],"128":[1073,1074,260],"129":[1075,590,1076,258,1077,260],"130":[1078,1079,260],"131":[1080,257,262,258,1081,258,264,1082,258,266,260],"132":[1083,260],"133":[1084,590,505,258,750,258,1085,1086,396,258,1087,258,754,280,258,266,260],"134":[1088,590,258,1089,260],"135":[1090,590,258,1091,258,1092,260],"136":[1093,590,258,1094,260],"137":[1095,1096,260],"138":[1097,357,258,1098,258,1099,1100,367,258,1101,1102,1103,1104,258,1105,397,280,258,1106,700,258,1107,260],"139":[1108,268,269,258,1109,258,264,1110,258,266,260],"140":[1111,1112,258,1113,1114,258,1115,1116,1117,258,1118,397,258,1119,280,258,273,505,1120,258,1121,260],"141":[1122,1112,258,1113,1114,258,1115,1116,1123,258,1124,397,258,1125,280,258,273,505,1120,258,1126,260],"142":[1127,273,258,1128,260],"143":[1129,357,258,1098,1130,258,1131,1132,280,258,1133,260],"144":[1134,1135,1136,258,1137,260],"145":[1138,273,258,1139,1140,258,793,1141,258,1142,258,1143,260],"146":[1144,1145,1146,258,1147,260],"147":[1148,276,258,295,1149,258,288,258,297,258,1150,1151,258,1152,258,1153,280,258,1154,260],"148":[1155,276,277,258,1156,258,1157,258,729,1158,280,260],"149":[1159,276,380,258,1160,260],"150":[1161,590,505,1162,258,1163,700,258,1164,260],"151":[1165,431,1166,258,257,333,258,1167,1168,258,1113,1169,258,266,260],"152":[1170,276,675,258,456,258,315,1171,396,258,724,280,258,266,260],"153":[1172,276,288,258,291,1173,258,1120,787,258,1174,258,1175,258,1176,260],"154":[1177,273,288,258,1178,260],"155":[1179,273,505,1180,258,1181,258,1182,1183,280,258,266,260],"156":[1184,287,505,1180,258,412,1185,258,1186,1187,448,258,449,1188,1189,565,1190,397,258,455,662,700,260],"157":[1191,276,258,1192,260],"158":[1193,257,258,1194,260],"159":[1195,273,258,295,1196,258,302,1197,1198,258,1199,1200,1201,258,1202,397,258,1203,1204,1205,1206,1207,312,258,313,280,258,266,260],"160":[1208,1209,260],"161":[1210,273,258,295,1211,258,675,258,291,1212,258,1213,258,1214,447,1215,258,448,1216,258,1217,1218,258,1219,1220,258,1221,1222,565,1223,258,1221,567,397,258,455,280,258,1224,447,1215,1225,258,1226,258,1227,1228,258,1229,1230,258,682,397,258,455,280,258,1231,258,1232,260],"162":[1233,590,505,1162,258,293,260],"163":[1234,276,258,295,1235,258,288,258,1150,1236,258,1237,258,1153,280,258,1238,260],"164":[1239,276,258,456,727,258,304,1240,1241,258,1242,724,280,258,266,260],"165":[1243,257,333,258,1244,258,665,1245,1246,258,1247,500,258,1248,280,260],"166":[1249,287,288,258,1250,260],"167":[1251,287,288,258,297,258,1252,260],"168":[1253,287,258,1254,258,1255,258,291,1256,258,1257,280,258,1258,258,1259,258,1260,258,1261,260],"169":[1262,715,258,716,1115,1263,403,1264,718,1265,1266,1266,258,1267,258,1268,1269,258,1270,567,258,1271,397,258,1115,1272,258,719,543,258,1273,1274,1275,1276,258,569,397,258,1277,258,571,1278,258,1279,397,258,455,280,260],"170":[1280,1281,260],"171":[1282,273,258,295,1283,258,791,1284,258,1285,260],"172":[1286,1287,260],"173":[1288,273,258,1289,1290,258,1291,258,1292,260],"174":[1293,273,258,1181,258,1294,543,258,1295,1296,1297,258,451,567,258,1298,258,782,397,258,1299,280,258,266,260],"175":[1300,273,505,258,1301,1302,258,1303,280,258,1304,260],"176":[1305,273,505,258,1306,1302,258,1307,280,258,1304,260],"177":[1308,257,262,258,1309,258,264,1310,258,266,260],"178":[1311,287,288,258,767,768,769,770,771,403,521,280,258,1312,260],"179":[1313,1314,1315,258,1316,1317,258,1318,1319,1320,1321,258,999,567,397,280,258,1322,1323,741,280,258,1324,258,1325,1326,260],"180":[1327,276,505,258,456,258,315,1328,258,1329,280,258,266,260],"181":[1330,276,258,1331,258,1332,260],"182":[1333,1334,260],"183":[1335,276,505,258,1336,258,728,258,1337,1338,258,279,280,260],"184":[1339,276,258,1340,447,258,448,258,449,1341,258,1342,1343,258,1344,1345,258,1346,258,1347,567,258,1348,397,258,455,280,258,1349,447,258,448,543,258,449,1350,1351,258,1352,1353,1297,565,1354,397,258,1355,258,571,1356,397,258,571,1357,1358,258,1221,451,1353,1359,258,1221,565,1354,397,258,455,280,258,1360,1361,1362,258,1363,1364,1365,258,1366,258,1367,258,1368,280,258,1369,258,1370,1371,258,1372,280,258,393,1373,258,1374,258,1375,258,1370,1376,258,1377,280,258,1378,258,1379,1374,258,1380,258,1381,418,1382,258,1383,1384,258,1385,397,258,1386,258,407,280,258,1374,258,785,260],"185":[1387,1388,258,1389,260],"186":[1390,257,258,295,1391,258,269,258,1392,1393,258,1394,1395,1396,1397,1398,258,1399,1400,258,1401,397,258,1402,1403,258,1401,397,258,1404,1405,1406,258,1407,397,258,1408,1409,1406,258,1410,397,258,1411,1412,1406,258,1413,397,258,1414,1415,1406,258,1407,397,258,1416,545,258,1417,280,258,1418,258,1419,1420,258,1421,1422,1423,258,1424,1425,258,1141,280,258,1426,1427,258,1428,1429,258,1430,260],"187":[1431,357,258,295,1432,258,288,258,1433,1434,258,1435,260],"188":[1436,1437,258,1438,260],"189":[1439,431,432,258,1440,280,258,257,258,434,435,1441,1442,1443,439,258,1444,260],"190":[1445,357,258,295,1446,258,262,258,1433,1434,258,1447,260],"191":[1448,332,258,1449,260],"192":[1450,377,258,716,1451,1452,258,543,258,1453,258,1273,421,1454,1455,1456,258,1457,1458,258,1352,565,1459,1460,258,1461,1352,567,397,258,1462,258,1463,718,1451,1464,258,543,258,1465,258,1273,1466,1455,1467,258,1468,1469,258,1457,1470,258,1352,565,1471,1460,258,1461,1352,1472,567,397,258,1462,258,1463,1473,1474,368,1475,662,1476,260],"193":[1477,257,258,295,1478,258,288,258,1479,1480,258,793,1141,258,1481,1482,1483,258,1484,1485,258,1486,500,258,1487,280,258,1488,1489,258,1490,258,1491,260],"194":[1492,273,258,1493,260],"195":[1494,273,258,1495,258,1496,258,266,260],"196":[1497,377,258,1498,260],"197":[1499,273,258,1498,260],"198":[1500,273,258,1501,260],"199":[1502,273,258,1503,258,1504,258,266,260],"200":[1505,377,258,1506,260],"201":[1507,273,258,1508,258,1509,258,266,260],"202":[1510,273,258,1511,260],"203":[1512,273,258,1513,260],"204":[1514,273,258,1515,260],"205":[1516,273,258,1517,260],"206":[1518,257,258,1519,260],"207":[1520,637,1521,258,1522,1523,258,455,638,1524,662,700,260],"208":[1525,412,1526,1527,258,1463,280,258,276,288,258,456,258,315,1528,258,1329,280,258,266,260],"209":[1529,412,1526,1530,258,1463,280,258,276,505,258,456,258,315,1531,258,1329,280,258,266,260],"210":[1532,276,380,258,1533,260],"211":[1534,273,258,810,1535,258,807,1536,258,808,1537,258,371,260],"212":[1538,257,262,258,1539,258,264,1540,258,266,260],"213":[1541,1542,260],"214":[1543,590,505,258,1544,260],"215":[1545,590,258,295,1546,258,505,258,1547,260],"216":[1548,1549,260],"217":[1550,590,258,1551,260],"218":[1552,590,505,258,1553,260],"219":[1554,1555,258,1556,258,266,260],"220":[1557,1558,260],"221":[1559,273,258,1560,1561,1562,1563,1564,1565,258,266,260],"222":[1566,590,505,258,1567,260],"223":[1568,590,505,258,1569,260],"224":[1570,590,1571,258,1572,260],"225":[1573,590,505,258,1574,260],"226":[1575,590,505,258,1576,260],"227":[1577,1578,260],"228":[1579,590,505,258,1580,260],"229":[1581,1582,260],"230":[1583,273,258,1584,260],"231":[1585,1586,260],"232":[1587,590,258,1588,258,1589,1590,258,1591,280,258,1592,258,665,1593,500,258,1248,280,260],"233":[1594,590,1571,258,1595,260],"234":[1596,590,258,1597,260],"235":[1598,590,1571,258,1599,260],"236":[1600,1601,258,1602,258,266,260],"237":[1603,590,1076,258,1604,260],"238":[1605,1606,258,1607,258,266,260],"239":[1608,1609,260],"240":[1610,590,505,258,1611,260],"241":[1612,1613,258,1614,258,266,260],"242":[1615,1616,260],"243":[1617,590,1571,258,1618,260],"244":[1619,1620,260],"245":[1621,1622,260],"246":[1623,590,1571,258,1624,260],"247":[1625,1626,258,1627,260],"248":[1628,1629,260],"249":[1630,1626,258,1631,260],"250":[1632,1626,258,1633,806,258,1634,806,258,812,260],"251":[1635,1636,597,413,1637,1638,1639,258,1640,258,1641,1642,258,1643,1644,258,1645,1646,1647,1648,258,1649,258,1650,1651,1652,1653,258,1654,1655,1656,1657,258,1658,258,1659,258,1660,1661,1662,1663,1664,258,1665,258,1666,1667,1668,397,258,1669,1670,1671,1672,397,258,1673,1674,1675,397,258,1676,1677,1678,397,258,1679,1680,258,1681,258,806,280,258,1682,1683,1684,258,1685,260],"252":[1686,273,258,1687,258,1688,260],"253":[1689,276,258,1690,1691,258,1692,1693,258,1694,1695,1696,280,258,1697,258,315,1698,1699,258,1700,1701,1702,258,1703,1704,1705,397,258,1706,280,258,266,260],"254":[1707,273,258,295,1708,258,1709,280,258,1076,258,1710,1711,1588,258,1712,1713,1714,258,1715,1716,403,1717,258,1591,280,258,1718,1719,258,1720,258,1721,1591,280,258,1722,1723,258,1724,1725,258,665,1593,500,258,1248,280,258,1726,260],"255":[1727,1728,1729,258,1730,258,455,280,258,1731,258,1732,258,1733,1734,258,1735,1736,1737,1738,258,1739,1740,1741,1742,258,1743,1744,1745,1746,258,1747,258,1748,1749,258,1750,1751,258,1752,1753,258,1754,1755,1756,1757,1758,258,1759,1760,258,1761,1762,258,1763,1764,258,1765,1766,1767,258,1768,1769,1770,258,1733,1771,1772,662,1773,1774,280,258,1775,1776,258,1777,1778,1779,1780,1781,260]}
+main()
+</script>
+</body>
+</html>
